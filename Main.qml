@@ -12,7 +12,7 @@ ApplicationWindow {
     height: 780
     title: qsTr("Media Player")
     color: "transparent"
-    flags: Qt.FramelessWindowHint
+    flags: Qt.FramelessWindowHint | Qt.Window
 
     Component.onCompleted: function() {
         x = (screen.width - width) / 2;
