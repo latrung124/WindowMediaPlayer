@@ -15,6 +15,10 @@ Item {
     implicitWidth: 80
     implicitHeight: 20
 
+    signal closeWindowClicked()
+    signal minimizeWindowClicked()
+    signal maximizeWindowClicked()
+
     RowLayout {
         id: layout
 
@@ -63,6 +67,15 @@ Item {
                 anchors.fill: parent
                 source: `Resources/close-button.png`
                 fillMode: Image.PreserveAspectFit
+            }
+
+            MouseArea {
+                id: closeArea
+
+                anchors.fill: parent
+                onClicked: {
+                    closeWindowClicked()
+                }
             }
         }
     }

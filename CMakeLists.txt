@@ -10,7 +10,10 @@ qt_standard_project_setup(REQUIRES 6.5)
 
 set(CONTROLLER_SOURCES
     Controller/ModuleController.cpp
+    Controller/WindowController.cpp
+
     Controller/ModuleController.h
+    Controller/WindowController.h
 )
 
 set(UTILS_SOURCES

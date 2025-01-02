@@ -37,5 +37,12 @@ ApplicationWindow {
             right: parent.right
             rightMargin: 5
         }
+
+        onCloseWindowClicked: {
+            root.close();
+            if (windowControl) {
+                windowControl.closeWindow();
+            }
+        }
     }
 }

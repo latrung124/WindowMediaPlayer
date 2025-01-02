@@ -13,12 +13,15 @@
 
 #include <memory>
 
+class WindowController;
+
 class ModuleController : public QObject
 {
     Q_OBJECT
 
 public:
     using EnginePtr = std::shared_ptr<QQmlApplicationEngine>;
+    using WindowControllerPtr = std::shared_ptr<WindowController>;
     explicit ModuleController(QObject *parent = nullptr);
     ~ModuleController();
 
@@ -33,8 +36,11 @@ signals:
 private:
     void startConnection();
     void endConnection();
+
+    void setContextProperties();
     void loadModule(const QString &moduleName, const QString &moduleComponent);
     EnginePtr m_engine;
+    WindowControllerPtr m_windowController;
 };
 
 #endif // MODULECONTROLLER_H
