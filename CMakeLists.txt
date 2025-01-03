@@ -27,7 +27,11 @@ qt_add_executable(appWindowMediaPlayer
 )
 
 set(QmlComponent
-    QmlComponent/WindowControl.qml)
+    QmlComponent/WindowControl.qml
+    QmlComponent/MainContent.qml
+    QmlComponent/BottomMediaPlayer.qml
+    QmlComponent/MediaControl.qml
+)
 
 foreach(QmlComponent ${component})
     get_filename_component(component_name ${component} NAME)
@@ -45,10 +49,19 @@ qt_add_qml_module(appWindowMediaPlayer
     QML_FILES
         Main.qml
         QmlComponent/WindowControl.qml
+        QmlComponent/MainContent.qml
+        QmlComponent/BottomMediaPlayer.qml
+        QmlComponent/MediaControl.qml
     RESOURCES
         "QmlComponent/Resources/minimize-button.png"
         "QmlComponent/Resources/maximize-button.png"
         "QmlComponent/Resources/close-button.png"
+        "QmlComponent/Resources/next-button.png"
+        "QmlComponent/Resources/pause-button.png"
+        "QmlComponent/Resources/play-button.png"
+        "QmlComponent/Resources/previous-button.png"
+        "QmlComponent/Resources/shuffle-button.png"
+        "QmlComponent/Resources/repeat-button.png"
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

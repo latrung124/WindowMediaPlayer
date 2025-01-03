@@ -26,6 +26,9 @@ ApplicationWindow {
         color: "#000000"
         opacity: 1
         radius: 8
+
+        border.color: "#ffffff"
+        border.width: 0.5
     }
 
     WindowControl {
@@ -42,6 +45,39 @@ ApplicationWindow {
             root.close();
             if (windowControl) {
                 windowControl.closeWindow();
+            }
+        }
+    }
+
+    MainContent {
+        id: mainContent
+
+        anchors {
+            top: parent.top
+            topMargin: 80
+            left: parent.left
+            leftMargin: 10
+            right: parent.right
+            rightMargin: 10
+        }
+    }
+
+    BottomMediaPlayer {
+        id: bottomMediaPlayer
+
+        anchors {
+            bottom: parent.bottom
+            top: mainContent.bottom
+            topMargin: 10
+            left: parent.left
+            right: parent.right
+        }
+
+        MediaControl {
+            id: mediaControl
+
+            anchors {
+                centerIn: parent
             }
         }
     }
