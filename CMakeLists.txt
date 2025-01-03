@@ -4,7 +4,7 @@ project(WindowMediaPlayer VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Quick)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Core5Compat)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -31,6 +31,10 @@ set(QmlComponent
     QmlComponent/MainContent.qml
     QmlComponent/BottomMediaPlayer.qml
     QmlComponent/MediaControl.qml
+
+    QmlComponent/CustomButton.qml
+    QmlComponent/CustomButtonBackground.qml
+    QmlComponent/CustonButtonContent.qml
 )
 
 foreach(QmlComponent ${component})
@@ -52,6 +56,9 @@ qt_add_qml_module(appWindowMediaPlayer
         QmlComponent/MainContent.qml
         QmlComponent/BottomMediaPlayer.qml
         QmlComponent/MediaControl.qml
+        QmlComponent/CustomButton.qml
+        QmlComponent/CustomButtonBackground.qml
+        QmlComponent/CustomButtonContent.qml
     RESOURCES
         "QmlComponent/Resources/minimize-button.png"
         "QmlComponent/Resources/maximize-button.png"
@@ -81,7 +88,9 @@ target_include_directories(appWindowMediaPlayer
 )
 
 target_link_libraries(appWindowMediaPlayer
-    PRIVATE Qt6::Quick
+    PRIVATE
+        Qt6::Quick
+        Qt6::Core5Compat
 )
 
 include(GNUInstallDirs)

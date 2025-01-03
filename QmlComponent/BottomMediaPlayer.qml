@@ -23,4 +23,14 @@ Item {
         radius: 8
         anchors.margins: 1
     }
+
+    CustomButton {
+        id: previousButton
+
+        iconSource: `Resources/previous-button.png`
+        iconColor: "#ffffff"
+        anchors.left: parent.left
+        anchors.leftMargin: 10
+        anchors.verticalCenter: parent.verticalCenter
+    }
 }
