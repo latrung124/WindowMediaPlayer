@@ -17,6 +17,7 @@ Item {
 
     property alias iconSource: icon.source
     property alias iconColor: iconOverlay.color
+    property alias backgroundColor: background.color
 
     implicitWidth: internal.backgroundWidth
     implicitHeight: internal.backgroundHeight
@@ -44,6 +45,7 @@ Item {
         visible: isShowIcon
         anchors.fill: icon
         source: icon
+        color: internal.iconColor
     }
 
     QtObject {
@@ -53,5 +55,6 @@ Item {
         readonly property int backgroundHeight: 50
         readonly property int backgroundRadius: 4
         readonly property color backgroundColor: "#000000"
+        readonly property color iconColor: "#333333"
     }
 }

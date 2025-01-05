@@ -15,6 +15,7 @@ T.Button {
 
     property string iconSource: ""
     property color iconColor: "#ffffff"
+    property color backgroundColor: "#000000"
 
     property alias isShowIcon: background.isShowIcon
     property alias isShowBackground: background.isShowBackground
@@ -41,5 +42,32 @@ T.Button {
 
         iconSource: control.iconSource
         iconColor: control.iconColor
+        backgroundColor: control.backgroundColor
     }
+
+    MouseArea {
+        id: mouseArea
+
+        anchors.fill: parent
+        hoverEnabled: true
+    }
+
+    states: [
+        State {
+            name: "hovered"
+            when: !mouseArea.pressed && mouseArea.containsMouse
+            PropertyChanges {
+                target: control
+                iconColor: "#888888"
+            }
+        },
+        State {
+            name: "pressed"
+            when: mouseArea.pressed && mouseArea.containsMouse
+            PropertyChanges {
+                target: control
+                iconColor: "#ffffff"
+            }
+        }
+    ]
 }

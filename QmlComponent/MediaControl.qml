@@ -27,7 +27,7 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             iconSource: `Resources/shuffle-button.png`
-            iconColor: "#ffffff"
+            iconColor: "#666666"
             isShowIcon: true
             isShowBackground: true
         }
@@ -38,7 +38,7 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             iconSource: `Resources/previous-button.png`
-            iconColor: "#ffffff"
+            iconColor: "#666666"
             isShowIcon: true
             isShowBackground: true
         }
@@ -49,7 +49,7 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             iconSource: `Resources/play-button.png`
-            iconColor: "#ffffff"
+            iconColor: "#666666"
             isShowIcon: true
             isShowBackground: true
         }
@@ -60,7 +60,7 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             iconSource: `Resources/next-button.png`
-            iconColor: "#ffffff"
+            iconColor: "#666666"
             isShowIcon: true
             isShowBackground: true
         }
@@ -71,7 +71,7 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             iconSource: `Resources/repeat-button.png`
-            iconColor: "#ffffff"
+            iconColor: "#666666"
             isShowIcon: true
             isShowBackground: true
         }
