@@ -34,7 +34,7 @@ Item {
         id: icon
 
         visible: false
-        anchors.centerIn: parent
+        anchors.fill: parent
         fillMode: Image.PreserveAspectFit
     }
 

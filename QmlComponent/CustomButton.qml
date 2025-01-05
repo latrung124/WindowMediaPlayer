@@ -18,6 +18,8 @@ T.Button {
 
     property alias isShowIcon: background.isShowIcon
     property alias isShowBackground: background.isShowBackground
+    property alias backgroundWidth: background.width
+    property alias backgroundHeight: background.height
 
     implicitWidth: Math.max(background.implicitWidth + leftInset + rightInset,
                             contentItem.implicitWidth + leftPadding + rightPadding)

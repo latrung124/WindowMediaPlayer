@@ -21,124 +21,59 @@ Item {
         anchors.fill: parent
         spacing: 22
 
-        Item {
+        CustomButton {
             id: shuffleItem
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            Rectangle {
-                id: shuffleRect
-
-                anchors.fill: parent
-                color: "transparent"
-
-                Image {
-                    id: shuffleImg
-
-                    width: 32
-                    height: 32
-                    anchors.centerIn: parent
-                    source: `Resources/shuffle-button.png`
-                    fillMode: Image.PreserveAspectFit
-                }
-            }
+            iconSource: `Resources/shuffle-button.png`
+            iconColor: "#ffffff"
+            isShowIcon: true
+            isShowBackground: true
         }
 
-        Item {
+        CustomButton {
             id: previousItem
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            Rectangle {
-                id: previousRect
-
-                anchors.fill: parent
-                color: "transparent"
-
-                Image {
-                    id: previousImg
-
-                    width: 32
-                    height: 32
-                    anchors.centerIn: parent
-                    source: `Resources/previous-button.png`
-                    fillMode: Image.PreserveAspectFit
-                }
-            }
+            iconSource: `Resources/previous-button.png`
+            iconColor: "#ffffff"
+            isShowIcon: true
+            isShowBackground: true
         }
 
-        Item {
+        CustomButton {
             id: playPauseItem
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            Rectangle {
-                id: playPauseRect
-
-                anchors.fill: parent
-                color: "transparent"
-
-                Image {
-                    id: playPauseImg
-
-                    width: 48
-                    height: 48
-                    anchors.centerIn: parent
-                    source: `Resources/play-button.png`
-                    fillMode: Image.PreserveAspectFit
-                }
-            }
+            iconSource: `Resources/play-button.png`
+            iconColor: "#ffffff"
+            isShowIcon: true
+            isShowBackground: true
         }
 
-        Item {
+        CustomButton {
             id: nextItem
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            Rectangle {
-                id: nextRect
-
-                anchors.fill: parent
-                color: "transparent"
-
-                Image {
-                    id: nextImg
-
-                    width: 32
-                    height: 32
-                    anchors.centerIn: parent
-                    source: `Resources/next-button.png`
-                    fillMode: Image.PreserveAspectFit
-                }
-            }
+            iconSource: `Resources/next-button.png`
+            iconColor: "#ffffff"
+            isShowIcon: true
+            isShowBackground: true
         }
 
-        Item {
+        CustomButton {
             id: repeatItem
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            Rectangle {
-                id: repeatRect
-
-                anchors.fill: parent
-                color: "transparent"
-
-                Image {
-                    id: repeatImg
-
-                    width: 32
-                    height: 32
-                    anchors.centerIn: parent
-                    source: `Resources/repeat-button.png`
-                    fillMode: Image.PreserveAspectFit
-                }
-            }
+            iconSource: `Resources/repeat-button.png`
+            iconColor: "#ffffff"
+            isShowIcon: true
+            isShowBackground: true
         }
     }
 }
