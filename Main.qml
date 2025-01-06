@@ -72,13 +72,5 @@ ApplicationWindow {
             left: parent.left
             right: parent.right
         }
-
-        MediaControl {
-            id: mediaControl
-
-            anchors {
-                centerIn: parent
-            }
-        }
     }
 }

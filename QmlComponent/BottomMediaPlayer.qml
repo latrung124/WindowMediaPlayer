@@ -23,4 +23,67 @@ Item {
         radius: 8
         anchors.margins: 1
     }
+
+    RowLayout {
+        id: layout
+
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+            bottom: parent.bottom
+            margins: internal.margin
+        }
+        spacing: 0
+
+        Item {
+            id: albumArtItem
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignLeft
+            Rectangle {
+                id: albumArtRect
+
+                width: internal.imageSize
+                height: internal.imageSize
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                }
+            }
+        }
+
+        MediaControl {
+            id: mediaControl
+
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+        }
+
+        Item {
+            id: volumeControlItem
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignRight
+
+            Rectangle {
+                id: volumeControlRect
+
+                width: 200
+                height: 40
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    right: parent.right
+                }
+            }
+        }
+    }
+
+    QtObject {
+        id: internal
+
+        readonly property int margin: 10
+        readonly property int imageSize: 60
+    }
 }
