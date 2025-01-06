@@ -1,0 +1,21 @@
+/*
+* File:  IWindowMediaService.h
+* Author: trung.la
+* Date: 01-07-2025
+* Description: Interface for Window Media Service
+*/
+
+#ifndef IWINDOWMEDIASERVICE_H
+#define IWINDOWMEDIASERVICE_H
+
+#include "Definitions.h"
+
+class WMEDIA_SERVICE_API IWindowMediaService
+{
+public:
+    ~IWindowMediaService() = default;
+
+    virtual void getMediaInfo() = 0;
+};
+
+#endif // IWINDOWMEDIASERVICE_H
