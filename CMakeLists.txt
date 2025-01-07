@@ -12,6 +12,7 @@ add_definitions(-DWMEDIA_SERVICE_LIBRARY_EXPORTS)
 add_definitions(-DSERVICE_FACTORY_LIBRARY_EXPORTS)
 
 add_subdirectory(Service/WindowMediaService)
+add_subdirectory(Service/ServiceFactory)
 
 set(CONTROLLER_SOURCES
     Controller/ModuleController.cpp
@@ -90,12 +91,17 @@ set_target_properties(appWindowMediaPlayer PROPERTIES
 target_include_directories(appWindowMediaPlayer
     PRIVATE
         Controller
+    PUBLIC
+        ${CMAKE_SOURCE_DIR}/Interface
 )
 
 target_link_libraries(appWindowMediaPlayer
     PRIVATE
         Qt6::Quick
         Qt6::Core5Compat
+    PRIVATE
+        WindowMediaService
+        ServiceFactory
 )
 
 include(GNUInstallDirs)

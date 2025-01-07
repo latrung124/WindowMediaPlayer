@@ -19,15 +19,12 @@ class SERVICE_FACTORY_API ServiceFactory : public IServiceFactory
 {
 public:
     virtual ~ServiceFactory() = default;
-
-    using ServiceFactoryFunc = std::function<std::unique_ptr<ServiceFactory>()>;
-
-    static ServiceFactory& instance();
-    void registerCreator(const std::string& key, ServiceFactoryFunc func);
-    std::unique_ptr<ServiceFactory> create(const std::string& key) const;
-
-private:
-    std::unordered_map<std::string, ServiceFactoryFunc> serviceFactories;
+    IService* factoryMethod(std::string &serviceName) const override;
 };
+
+extern "C" SERVICE_FACTORY_API IServiceFactory* getServiceFactory() {
+    static ServiceFactory factory;
+    return &factory;
+}
 
 #endif // SERVICE_FACTORY_H

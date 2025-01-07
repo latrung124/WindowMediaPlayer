@@ -11,6 +11,5 @@
 
 void WindowMediaService::getMediaInfo()
 {
-    // Implementation for getMediaInfo
-    std::cout << "WindowMediaService::getMediaInfo" << std::endl;
+    std::cout << "Window Media Service: getMediaInfo" << std::endl;
 }

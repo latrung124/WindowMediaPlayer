@@ -13,7 +13,13 @@
 class SERVICE_FACTORY_API IService
 {
 public:
+    IService() = default;
     ~IService() = default;
+
+    IService(const IService&) = delete;
+    IService& operator=(const IService&) = delete;
+    IService(IService&&) = delete;
+    IService& operator=(IService&&) = delete;
 };
 
 #endif // ISERVICE_H

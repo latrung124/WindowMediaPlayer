@@ -10,13 +10,17 @@
 
 #include "Definitions.h"
 
+#include <string>
+
 class IService;
 
 class SERVICE_FACTORY_API IServiceFactory
 {
 public:
     virtual ~IServiceFactory() = default;
-    virtual IService* factoryMethod() const = 0;
+    virtual IService* factoryMethod(std::string &serviceName) const = 0;
 };
+
+extern "C" SERVICE_FACTORY_API IServiceFactory* getServiceFactory();
 
 #endif // ISERVICE_FACTORY_H

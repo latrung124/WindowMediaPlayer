@@ -5,10 +5,16 @@
 * Description: Implementation for Service Factory
 */
 
-#include "include/ServiceFactory.h"
+#include "ServiceFactory.h"
+#include "WindowMediaService/IWindowMediaService.h"
+#include "WindowMediaService/include/WindowMediaService.h"
 
-ServiceFactory& ServiceFactory::instance()
+IService* ServiceFactory::factoryMethod(std::string &serviceName) const
 {
-    static ServiceFactory factory;
-    return factory;
+    if (serviceName == "WindowMediaService")
+    {
+        return new WindowMediaService();
+    }
+
+    return nullptr;
 }
