@@ -17,13 +17,16 @@ add_subdirectory(Service/ServiceFactory)
 set(CONTROLLER_SOURCES
     Controller/ModuleController.cpp
     Controller/WindowController.cpp
+    Controller/ServiceController.cpp
 
     Controller/ModuleController.h
     Controller/WindowController.h
+    Controller/ServiceController.h
 )
 
 set(UTILS_SOURCES
     Utils/ModuleUtility.h
+    Utils/ServiceUtility.h
 )
 
 qt_add_executable(appWindowMediaPlayer

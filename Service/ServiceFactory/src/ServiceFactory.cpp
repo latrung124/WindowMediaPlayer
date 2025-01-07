@@ -6,7 +6,6 @@
 */
 
 #include "ServiceFactory.h"
-#include "WindowMediaService/IWindowMediaService.h"
 #include "WindowMediaService/include/WindowMediaService.h"
 
 IService* ServiceFactory::factoryMethod(std::string &serviceName) const

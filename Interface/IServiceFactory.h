@@ -12,7 +12,7 @@
 
 #include <string>
 
-class IService;
+#include "IService.h"
 
 class SERVICE_FACTORY_API IServiceFactory
 {

@@ -8,13 +8,11 @@
 #ifndef ISERVICE_H
 #define ISERVICE_H
 
-#include "Definitions.h"
-
-class SERVICE_FACTORY_API IService
+class IService
 {
 public:
     IService() = default;
-    ~IService() = default;
+    virtual ~IService() = default;
 
     IService(const IService&) = delete;
     IService& operator=(const IService&) = delete;
