@@ -7,8 +7,14 @@
 #    else
 #        define WMEDIA_SERVICE_API __declspec(dllimport) // When consuming the library
 #    endif
+#    ifdef SERVICE_FACTORY_LIBRARY_EXPORTS
+#        define SERVICE_FACTORY_API __declspec(dllexport) // When building the library
+#    else
+#        define SERVICE_FACTORY_API __declspec(dllimport) // When consuming the library
+#    endif
 #else
 #    define WMEDIA_SERVICE_API // Non-Windows platforms
+#    define SERVICE_FACTORY_API // Non-Windows platforms
 #endif
 
 #endif // INTERFACE_DEFINITIONS_H

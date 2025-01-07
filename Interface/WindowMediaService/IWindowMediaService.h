@@ -9,8 +9,9 @@
 #define IWINDOWMEDIASERVICE_H
 
 #include "Definitions.h"
+#include "IService.h"
 
-class WMEDIA_SERVICE_API IWindowMediaService
+class WMEDIA_SERVICE_API IWindowMediaService : public IService
 {
 public:
     ~IWindowMediaService() = default;

@@ -9,6 +9,7 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Core5Compat)
 qt_standard_project_setup(REQUIRES 6.5)
 
 add_definitions(-DWMEDIA_SERVICE_LIBRARY_EXPORTS)
+add_definitions(-DSERVICE_FACTORY_LIBRARY_EXPORTS)
 
 add_subdirectory(Service/WindowMediaService)
 

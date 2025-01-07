@@ -10,10 +10,11 @@
 
 #include "WindowMediaService/IWindowMediaService.h"
 
-class WindowMediaService : public IWindowMediaService
+class WMEDIA_SERVICE_API WindowMediaService : public IWindowMediaService
 {
 public:
     virtual ~WindowMediaService() = default;
+
     virtual void getMediaInfo() override;
 };
 
