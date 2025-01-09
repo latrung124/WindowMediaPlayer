@@ -16,6 +16,7 @@ class WMEDIA_SERVICE_API IWindowMediaService : public IService
 public:
     ~IWindowMediaService() = default;
 
+    virtual void start() = 0;
     virtual void getMediaInfo() = 0;
 };
 

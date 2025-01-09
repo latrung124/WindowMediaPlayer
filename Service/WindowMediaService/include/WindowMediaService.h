@@ -9,13 +9,18 @@
 #define WINDOWMEDIASERVICE_H
 
 #include "WindowMediaService/IWindowMediaService.h"
+#include "WindowSystemMedia.h"
 
 class WMEDIA_SERVICE_API WindowMediaService : public IWindowMediaService
 {
 public:
     virtual ~WindowMediaService() = default;
 
+    virtual void start() override;
     virtual void getMediaInfo() override;
+
+private:
+    WindowSystemMedia m_windowSystemMedia;
 };
 
 #endif // WINDOWMEDIASERVICE_H

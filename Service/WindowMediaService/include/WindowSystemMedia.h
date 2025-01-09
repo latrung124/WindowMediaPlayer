@@ -15,13 +15,15 @@ class WindowSystemMedia
 public:
     using GlobalSystemMediaTransportControlsSessionManager = winrt::Windows::Media::Control::GlobalSystemMediaTransportControlsSessionManager;
     using GlobalSystemMediaTransportControlsSession = winrt::Windows::Media::Control::GlobalSystemMediaTransportControlsSession;
+
     WindowSystemMedia() = default;
     ~WindowSystemMedia() = default;
 
     bool systemInit();
 
 private:
-    void registerSessionChangesEvents();
+    void registerCurrentSessionChangedEvents();
+    void registerSessionPropertiesChangedEvents();
 
     GlobalSystemMediaTransportControlsSessionManager m_sessionManager{ nullptr };
     GlobalSystemMediaTransportControlsSession m_session{ nullptr };

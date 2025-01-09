@@ -7,9 +7,11 @@
 
 #include "WindowMediaService.h"
 
-#include <iostream>
+void WindowMediaService::start()
+{
+    m_windowSystemMedia.systemInit();
+}
 
 void WindowMediaService::getMediaInfo()
 {
-    std::cout << "Window Media Service: getMediaInfo" << std::endl;
 }

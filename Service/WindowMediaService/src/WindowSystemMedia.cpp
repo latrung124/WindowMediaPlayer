@@ -25,36 +25,53 @@ bool WindowSystemMedia::systemInit()
         IAsyncOperation<GlobalSystemMediaTransportControlsSessionManager>
             sessionManagerRes = GlobalSystemMediaTransportControlsSessionManager::RequestAsync();
         m_sessionManager = sessionManagerRes.get();
+        if (!m_sessionManager) {
+            return false;
+        }
+        registerCurrentSessionChangedEvents();
+
         m_session = m_sessionManager.GetCurrentSession();
         if (m_session) {
-            std::cout << "There is no media playing in your system" << std::endl;
+            registerSessionPropertiesChangedEvents();
         }
     } catch(winrt::hresult_error const& ex) {
         winrt::hstring message = ex.message();
-        std::wcout << "An error occurs: " << message.c_str() << std::endl;
+        throw std::runtime_error(winrt::to_string(message));
     }
     catch (...) {
-        std::cout << "Unknown error occurs" << std::endl;
+        throw std::runtime_error("Unknown error");
     }
 
     return true;
 }
 
-void WindowSystemMedia::registerSessionChangesEvents()
+void WindowSystemMedia::registerCurrentSessionChangedEvents()
 {
-    if (m_session) {
-        m_mediaPropertiesToken = m_session.MediaPropertiesChanged([](GlobalSystemMediaTransportControlsSession sender, MediaPropertiesChangedEventArgs e) {
-            std::cout << "register session changes events" << std::endl;
-        });
-
-        m_playbackInfoToken = m_session.PlaybackInfoChanged([](GlobalSystemMediaTransportControlsSession session, PlaybackInfoChangedEventArgs e) {
-            auto playbackInfo = session.GetPlaybackInfo();
-            if (playbackInfo.PlaybackStatus() == GlobalSystemMediaTransportControlsSessionPlaybackStatus::Paused) {
-                std::cout << "The media was paused" << std::endl;
-            }
-            else if (playbackInfo.PlaybackStatus() == GlobalSystemMediaTransportControlsSessionPlaybackStatus::Playing) {
-                std::cout << "The media is playing" << std::endl;
-            }
+    if (m_sessionManager) {
+        m_sessionChangedToken = m_sessionManager.CurrentSessionChanged([this](GlobalSystemMediaTransportControlsSessionManager manager,
+                                                                         CurrentSessionChangedEventArgs args) {
+            registerSessionPropertiesChangedEvents();
         });
     }
+}
+
+void WindowSystemMedia::registerSessionPropertiesChangedEvents()
+{
+    if (!m_session) {
+        return;
+    }
+
+    m_mediaPropertiesToken = m_session.MediaPropertiesChanged([](GlobalSystemMediaTransportControlsSession session, MediaPropertiesChangedEventArgs args) {
+        //TODO: handle media properties changed
+    });
+
+    m_playbackInfoToken = m_session.PlaybackInfoChanged([](GlobalSystemMediaTransportControlsSession session, PlaybackInfoChangedEventArgs args) {
+        auto playbackInfo = session.GetPlaybackInfo();
+        if (playbackInfo.PlaybackStatus() == GlobalSystemMediaTransportControlsSessionPlaybackStatus::Paused) {
+            //TODO: handle pause event
+        }
+        else if (playbackInfo.PlaybackStatus() == GlobalSystemMediaTransportControlsSessionPlaybackStatus::Playing) {
+            //TODO: handle play event
+        }
+    });
 }

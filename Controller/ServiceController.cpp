@@ -33,12 +33,24 @@ void ServiceController::initializeServices()
     {
         IServiceFactory* serviceFactory = getServiceFactory();
         std::string serviceName = service.second;
-        if (serviceFactory)
+        if (!serviceFactory)
         {
-            IService* service = serviceFactory->factoryMethod(serviceName);
-            if (service)
+            return;
+        }
+
+        IService* service = serviceFactory->factoryMethod(serviceName);
+        if (!service)
+        {
+            continue;
+        }
+
+        m_services[serviceName] = ServiceUPtr(service);
+        if (serviceName == "WindowMediaService")
+        {
+            IWindowMediaService* windowMediaService = dynamic_cast<IWindowMediaService*>(service);
+            if (windowMediaService)
             {
-                m_services[serviceName] = ServiceUPtr(service);
+                windowMediaService->start();
             }
         }
     }
