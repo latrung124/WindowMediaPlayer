@@ -1,9 +1,11 @@
 set(HEADERS
     include/WindowMediaService.h
+    include/WindowSystemMedia.h
 )
 
 set(SOURCES
     src/WindowMediaService.cpp
+    src/WindowSystemMedia.cpp
 )
 
 add_library(WindowMediaService SHARED
