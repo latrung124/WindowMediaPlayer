@@ -21,8 +21,14 @@ public:
     bool systemInit();
 
 private:
+    void registerSessionChangesEvents();
+
     GlobalSystemMediaTransportControlsSessionManager m_sessionManager{ nullptr };
     GlobalSystemMediaTransportControlsSession m_session{ nullptr };
+
+    winrt::event_token m_sessionChangedToken;
+    winrt::event_token m_mediaPropertiesToken;
+    winrt::event_token m_playbackInfoToken;
 };
 
 #endif // WINDOW_SYSTEM_MEDIA_H
