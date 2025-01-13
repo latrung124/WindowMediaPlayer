@@ -9,8 +9,6 @@
 
 #include <winrt/Windows.Foundation.h>
 
-#include <iostream>
-
 namespace {
 
 using namespace winrt;
