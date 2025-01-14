@@ -15,6 +15,7 @@
 #include <unordered_map>
 
 class IService;
+class IServiceListener;
 
 class ServiceController : public QObject
 {
@@ -29,6 +30,7 @@ public:
 
 private:
     void initializeServices();
+    void registerListeners();
 
     std::unordered_map<std::string, ServiceUPtr> m_services;
 };

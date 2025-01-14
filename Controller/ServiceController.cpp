@@ -9,7 +9,12 @@
 
 #include "IService.h"
 #include "IServiceFactory.h"
+
 #include "WindowMediaService/IWindowMediaService.h"
+#include "WindowMediaService/IWindowMediaServiceListener.h"
+
+#include "ServiceListener/WindowMediaService/WindowMediaServiceListener.h"
+
 #include "Utils/ServiceUtility.h"
 
 ServiceController::ServiceController(QObject *parent)
@@ -24,15 +29,16 @@ ServiceController::~ServiceController()
 void ServiceController::initialize()
 {
     initializeServices();
+    registerListeners();
 }
 
 void ServiceController::initializeServices()
 {
     using namespace utils::service;
-    for (const auto& service : getServiceNames())
+    for (const auto& s : getServiceNames())
     {
         IServiceFactory* serviceFactory = getServiceFactory();
-        std::string serviceName = service.second;
+        std::string serviceName = s.second;
         if (!serviceFactory)
         {
             return;
@@ -53,5 +59,19 @@ void ServiceController::initializeServices()
                 windowMediaService->start();
             }
         }
+    }
+}
+
+void ServiceController::registerListeners()
+{
+    using namespace utils::service;
+    for (const auto& s : getServiceNames())
+    {
+        std::string serviceName = s.second;
+        if (m_services[serviceName] == nullptr)
+        {
+            continue;
+        }
+        m_services[serviceName]->registerListener(new WindowMediaServiceListener());
     }
 }

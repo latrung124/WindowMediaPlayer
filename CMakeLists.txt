@@ -122,6 +122,7 @@ target_include_directories(appWindowMediaPlayer
         Controller
     PUBLIC
         ${CMAKE_SOURCE_DIR}/Interface
+        ${CMAKE_SOURCE_DIR}/ServiceHandler
 )
 
 target_link_libraries(appWindowMediaPlayer

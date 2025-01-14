@@ -8,11 +8,16 @@
 #ifndef ISERVICE_H
 #define ISERVICE_H
 
+#include "IServiceListener.h"
+
 class IService
 {
 public:
     IService() = default;
     virtual ~IService() = default;
+
+    virtual void registerListener(const IServiceListener *listener) = 0;
+    virtual void unregisterListener(const IServiceListener *listener) = 0;
 
     IService(const IService&) = delete;
     IService& operator=(const IService&) = delete;

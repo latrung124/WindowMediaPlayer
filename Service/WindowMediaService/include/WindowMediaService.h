@@ -11,16 +11,22 @@
 #include "WindowMediaService/IWindowMediaService.h"
 #include "WindowSystemMedia.h"
 
+#include <vector>
+
 class WMEDIA_SERVICE_API WindowMediaService : public IWindowMediaService
 {
 public:
     virtual ~WindowMediaService() = default;
+
+    virtual void registerListener(const IServiceListener *listener) override;
+    virtual void unregisterListener(const IServiceListener *listener) override;
 
     virtual void start() override;
     virtual void getMediaInfo() override;
 
 private:
     WindowSystemMedia m_windowSystemMedia;
+    std::vector<IServiceListener*> m_listeners;
 };
 
 #endif // WINDOWMEDIASERVICE_H
