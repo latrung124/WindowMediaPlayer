@@ -33,11 +33,13 @@ set(UTILS_SOURCES
 set (WINDOW_MEDIA_SERVICE_HEADERS
     Interface/WindowMediaService/WindowServiceUtils.h
     Interface/WindowMediaService/IWindowMediaService.h
+    Interface/WindowMediaService/IWindowMediaServiceListener.h
 )
 
 set (INTERFACE_HEADERS
     Interface/Definitions.h
     Interface/IService.h
+    Interface/IServiceListener.h
     Interface/IServiceFactory.h
     ${WINDOW_MEDIA_SERVICE_HEADERS}
 )
