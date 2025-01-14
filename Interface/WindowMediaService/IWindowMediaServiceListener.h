@@ -21,9 +21,9 @@ public:
     IWindowMediaServiceListener() = default;
     virtual ~IWindowMediaServiceListener() = default;
 
-    virtual void onMediaInfoChanged(const WMediaInfo& mediaInfo) = 0;
-    virtual void onPlaybackControlsChanged(const WPlaybackControls& playbackControls) = 0;
-    virtual void onPlaybackStatusChanged(WMediaPlaybackStatus playbackStatus) = 0;
+    virtual void onMediaInfoChanged(const WMediaInfo &mediaInfo) = 0;
+    virtual void onPlaybackControlsChanged(const WPlaybackControls &playbackControls) = 0;
+    virtual void onPlaybackStatusChanged(const WMediaPlaybackStatus &playbackStatus) = 0;
 };
 
 #endif // IWINDOW_MEDIA_SERVICE_LISTENER_H

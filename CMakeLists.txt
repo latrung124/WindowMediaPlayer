@@ -30,6 +30,15 @@ set(UTILS_SOURCES
     Utils/ServiceUtility.h
 )
 
+set (WINDOWMEDIASERVICELISTENER_SOURCES
+    ServiceHandler/ServiceListener/WindowMediaService/WindowMediaServiceListener.h
+    ServiceHandler/ServiceListener/WindowMediaService/WindowMediaServiceListener.cpp
+)
+
+set (SERVICELISTENER_SOURCES
+    ${WINDOWMEDIASERVICELISTENER_SOURCES}
+)
+
 set (WINDOW_MEDIA_SERVICE_HEADERS
     Interface/WindowMediaService/WindowServiceUtils.h
     Interface/WindowMediaService/IWindowMediaService.h
@@ -49,6 +58,7 @@ qt_add_executable(appWindowMediaPlayer
     ${CONTROLLER_SOURCES}
     ${UTILS_SOURCES}
     ${INTERFACE_HEADERS}
+    ${SERVICELISTENER_SOURCES}
 )
 
 set(QmlComponent
