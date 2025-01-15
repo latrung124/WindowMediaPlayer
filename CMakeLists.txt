@@ -26,6 +26,7 @@ set(CONTROLLER_SOURCES
 )
 
 set(UTILS_SOURCES
+    Utils/ThreadGuard.h
     Utils/ModuleUtility.h
     Utils/ServiceUtility.h
 )
