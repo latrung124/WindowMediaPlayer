@@ -31,8 +31,16 @@ set(UTILS_SOURCES
 )
 
 set (WINDOWMEDIASERVICELISTENER_SOURCES
+    ServiceHandler/BaseHandler.h
+    ServiceHandler/WindowMediaServiceHandler.h
+    ServiceHandler/WindowMediaServiceHandler.cpp
+
     ServiceHandler/ServiceListener/WindowMediaService/WindowMediaServiceListener.h
     ServiceHandler/ServiceListener/WindowMediaService/WindowMediaServiceListener.cpp
+
+    ServiceHandler/ServiceConsumer/BaseServiceConsumer.h
+    ServiceHandler/ServiceConsumer/WindowMediaService/WindowMediaServiceConsumer.h
+    ServiceHandler/ServiceConsumer/WindowMediaService/WindowMediaServiceConsumer.cpp
 )
 
 set (SERVICELISTENER_SOURCES
