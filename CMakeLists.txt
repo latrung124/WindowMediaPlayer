@@ -42,6 +42,11 @@ set (WINDOWMEDIASERVICELISTENER_SOURCES
     ServiceHandler/ServiceConsumer/BaseServiceConsumer.h
     ServiceHandler/ServiceConsumer/WindowMediaService/WindowMediaServiceConsumer.h
     ServiceHandler/ServiceConsumer/WindowMediaService/WindowMediaServiceConsumer.cpp
+
+    ServiceHandler/ServiceMessage/BaseServiceMessage.h
+    ServiceHandler/ServiceMessage/ServiceMessageId.h
+    ServiceHandler/ServiceMessage/WindowMediaService/WMediaInfoMessage.h
+    ServiceHandler/ServiceMessage/WindowMediaService/WMediaInfoMessage.cpp
 )
 
 set (SERVICELISTENER_SOURCES
