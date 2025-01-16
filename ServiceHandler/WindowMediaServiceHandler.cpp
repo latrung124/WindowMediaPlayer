@@ -10,7 +10,7 @@
 #include "ServiceConsumer/WindowMediaService/WindowMediaServiceConsumer.h"
 
 WindowMediaServiceHandler::WindowMediaServiceHandler()
-    : m_serviceConsumer(std::make_unique<WindowMediaServiceConsumer>())
+    : m_serviceConsumer(std::make_unique<WindowMediaServiceConsumer>(this))
 {
 }
 
