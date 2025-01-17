@@ -25,6 +25,11 @@ set(CONTROLLER_SOURCES
     Controller/ServiceController.h
 )
 
+set(MODEL_SOURCES
+    Model/MediaModule/MediaPlayerModel.cpp
+    Model/MediaModule/MediaPlayerModel.h
+)
+
 set(UTILS_SOURCES
     Utils/ThreadGuard.h
     Utils/ModuleUtility.h
@@ -74,6 +79,7 @@ set (INTERFACE_HEADERS
 qt_add_executable(appWindowMediaPlayer
     main.cpp
     ${CONTROLLER_SOURCES}
+    ${MODEL_SOURCES}
     ${UTILS_SOURCES}
     ${INTERFACE_HEADERS}
     ${SERVICELISTENER_SOURCES}
@@ -141,6 +147,7 @@ target_include_directories(appWindowMediaPlayer
     PUBLIC
         ${CMAKE_SOURCE_DIR}/Interface
         ${CMAKE_SOURCE_DIR}/ServiceHandler
+        ${CMAKE_SOURCE_DIR}/Model
 )
 
 target_link_libraries(appWindowMediaPlayer

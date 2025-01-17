@@ -19,6 +19,8 @@ public:
     BaseServiceMessage() = delete;
     virtual ~BaseServiceMessage() = default;
 
+    ServiceMessageId getId() const { return m_id; }
+
 private:
     ServiceMessageId m_id = ServiceMessageId::None;
 };

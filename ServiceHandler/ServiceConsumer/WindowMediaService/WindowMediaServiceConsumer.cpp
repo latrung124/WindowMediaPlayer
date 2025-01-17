@@ -61,7 +61,14 @@ void WindowMediaServiceConsumer::loop()
         if (m_handler) {
             auto message = std::move(m_messageQueue.front());
             m_messageQueue.pop();
-            // TODO: handle message
+            processMessage(std::move(message));
         }
+    }
+}
+
+void WindowMediaServiceConsumer::processMessage(ServiceMessageUPtr message)
+{
+    if (m_handler) {
+        m_handler->processMessage(std::move(message));
     }
 }

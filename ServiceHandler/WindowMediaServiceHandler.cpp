@@ -8,9 +8,11 @@
 #include "WindowMediaServiceHandler.h"
 
 #include "ServiceConsumer/WindowMediaService/WindowMediaServiceConsumer.h"
+#include "MediaModule/MediaPlayerModel.h"
 
 WindowMediaServiceHandler::WindowMediaServiceHandler()
     : m_serviceConsumer(std::make_unique<WindowMediaServiceConsumer>(this))
+    , m_mediaPlayerModel(std::make_unique<MediaPlayerModel>())
 {
 }
 
@@ -22,4 +24,15 @@ WindowMediaServiceHandler& WindowMediaServiceHandler::getInstance()
 {
     static WindowMediaServiceHandler instance;
     return instance;
+}
+
+void WindowMediaServiceHandler::enqueueMessage(ServiceMessageUPtr message)
+{
+    m_serviceConsumer->addMessage(std::move(message));
+}
+
+void WindowMediaServiceHandler::processMessage(ServiceMessageUPtr message)
+{
+    // Process message here
+    m_mediaPlayerModel->update();
 }

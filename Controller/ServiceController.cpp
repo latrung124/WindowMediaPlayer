@@ -11,7 +11,6 @@
 #include "IServiceFactory.h"
 
 #include "WindowMediaService/IWindowMediaService.h"
-#include "WindowMediaService/IWindowMediaServiceListener.h"
 
 #include "ServiceListener/WindowMediaService/WindowMediaServiceListener.h"
 
@@ -24,6 +23,12 @@ ServiceController::ServiceController(QObject *parent)
 
 ServiceController::~ServiceController()
 {
+}
+
+ServiceController& ServiceController::getInstance()
+{
+    static ServiceController instance;
+    return instance;
 }
 
 void ServiceController::initialize()

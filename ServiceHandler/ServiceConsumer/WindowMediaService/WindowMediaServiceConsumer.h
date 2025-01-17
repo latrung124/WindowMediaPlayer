@@ -16,7 +16,6 @@
 #include <queue>
 #include <memory>
 
-class BaseServiceMessage;
 class WindowMediaServiceHandler;
 
 class WindowMediaServiceConsumer : public BaseServiceConsumer
@@ -36,11 +35,13 @@ public:
     void start();
     void stop();
 
-    void addMessage(ServiceMessageUPtr message);
+    void addMessage(ServiceMessageUPtr message) override;
 
 private:
     void loop();
     bool canConsume();
+
+    void processMessage(ServiceMessageUPtr message);
 
     mutable std::mutex m_mutex;
     std::thread m_looper;

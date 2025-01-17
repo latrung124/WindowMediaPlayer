@@ -23,12 +23,14 @@ class ServiceController : public QObject
 
 public:
     using ServiceUPtr = std::unique_ptr<IService>;
-    explicit ServiceController(QObject *parent = nullptr);
+
+    static ServiceController& getInstance();
     ~ServiceController();
 
     void initialize();
 
 private:
+    ServiceController(QObject *parent = nullptr);
     void initializeServices();
     void registerListeners();
 
