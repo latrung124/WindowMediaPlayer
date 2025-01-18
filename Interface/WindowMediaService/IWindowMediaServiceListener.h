@@ -16,14 +16,14 @@ class IWindowMediaServiceListener : public IServiceListener
 public:
     using WMediaInfo = WindowServiceUtils::WMediaInfo;
     using WPlaybackControls = WindowServiceUtils::WPlaybackControls;
-    using WMediaPlaybackStatus = WindowServiceUtils::WMediaPlaybackStatus;
+    using WPlaybackInfo = WindowServiceUtils::WPlaybackInfo;
 
     IWindowMediaServiceListener() = default;
     virtual ~IWindowMediaServiceListener() = default;
 
     virtual void onMediaInfoChanged(const WMediaInfo &mediaInfo) = 0;
     virtual void onPlaybackControlsChanged(const WPlaybackControls &playbackControls) = 0;
-    virtual void onPlaybackStatusChanged(const WMediaPlaybackStatus &playbackStatus) = 0;
+    virtual void onPlaybackStatusChanged(const WPlaybackInfo &playbackInfo) = 0;
 };
 
 #endif // IWINDOW_MEDIA_SERVICE_LISTENER_H
