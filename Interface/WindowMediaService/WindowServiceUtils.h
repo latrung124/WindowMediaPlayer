@@ -43,14 +43,14 @@ namespace WindowServiceUtils
     {
         std::string albumTitle = "";
         std::string albumArtist = "";
-        uint32_t totalTracks = 0;
+        int32_t totalTracks = 0;
         std::string artist = "";
         std::vector<std::string> genres = {};
         WMediaPlaybackType playbackType = WMediaPlaybackType::Unknown;
         std::string subtitle = "";
         std::vector<uint8_t> thumbnail = {};
         std::string title = "";
-        uint32_t trackNumber = 0;
+        int32_t trackNumber = 0;
     };
 
     struct WPlaybackControls

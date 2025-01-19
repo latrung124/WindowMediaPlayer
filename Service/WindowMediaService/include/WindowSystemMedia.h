@@ -10,6 +10,8 @@
 
 #include <winrt/windows.media.control.h>
 
+class WindowMediaService;
+
 class WindowSystemMedia
 {
 public:
@@ -17,6 +19,7 @@ public:
     using GlobalSystemMediaTransportControlsSession = winrt::Windows::Media::Control::GlobalSystemMediaTransportControlsSession;
 
     WindowSystemMedia() = default;
+    WindowSystemMedia(WindowMediaService* service);
     ~WindowSystemMedia() = default;
 
     bool systemInit();
@@ -31,6 +34,8 @@ private:
     winrt::event_token m_sessionChangedToken;
     winrt::event_token m_mediaPropertiesToken;
     winrt::event_token m_playbackInfoToken;
+
+    WindowMediaService* m_service;
 };
 
 #endif // WINDOW_SYSTEM_MEDIA_H

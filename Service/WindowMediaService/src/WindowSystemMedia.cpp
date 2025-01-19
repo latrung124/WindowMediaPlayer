@@ -5,6 +5,7 @@
 * Description: Implementation of window system media
 */
 
+#include "WindowMediaService.h"
 #include "WindowSystemMedia.h"
 
 #include <winrt/Windows.Foundation.h>
@@ -14,7 +15,27 @@ namespace {
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::Media::Control;
+using namespace WindowServiceUtils;
 
+static WMediaPlaybackType convertPlaybackType(Windows::Foundation::IReference<Windows::Media::MediaPlaybackType> playbackType) {
+    const auto playbackTypeValue = playbackType.Value();
+    switch (playbackTypeValue) {
+    case Windows::Media::MediaPlaybackType::Music:
+        return WMediaPlaybackType::Music;
+    case Windows::Media::MediaPlaybackType::Video:
+        return WMediaPlaybackType::Video;
+    case Windows::Media::MediaPlaybackType::Image:
+        return WMediaPlaybackType::Image;
+    default:
+        return WMediaPlaybackType::Unknown;
+    }
+}
+
+}
+
+WindowSystemMedia::WindowSystemMedia(WindowMediaService* service)
+    : m_service(service)
+{
 }
 
 bool WindowSystemMedia::systemInit()
@@ -59,8 +80,23 @@ void WindowSystemMedia::registerSessionPropertiesChangedEvents()
         return;
     }
 
-    m_mediaPropertiesToken = m_session.MediaPropertiesChanged([](GlobalSystemMediaTransportControlsSession session, MediaPropertiesChangedEventArgs args) {
+    m_mediaPropertiesToken = m_session.MediaPropertiesChanged([this](GlobalSystemMediaTransportControlsSession session, MediaPropertiesChangedEventArgs args) {
         //TODO: handle media properties changed
+        const auto mediaPropertiesAsync = session.TryGetMediaPropertiesAsync();
+        const auto mediaProperties = mediaPropertiesAsync.get();
+        WMediaInfo mediaInfo{
+            .albumTitle = winrt::to_string(mediaProperties.AlbumTitle()),
+            .albumArtist = winrt::to_string(mediaProperties.AlbumArtist()),
+            .totalTracks = mediaProperties.AlbumTrackCount(),
+            .artist = winrt::to_string(mediaProperties.AlbumArtist()),
+            .genres = {}, // TODO: handle genres data
+            .playbackType = convertPlaybackType(mediaProperties.PlaybackType()),
+            .subtitle = winrt::to_string(mediaProperties.Subtitle()),
+            .thumbnail = {}, // TODO: handle thumbnail data
+            .title = winrt::to_string(mediaProperties.Title()),
+            .trackNumber = mediaProperties.TrackNumber(),
+        };
+        m_service->systemMediaPropertiesChanged(mediaInfo);
     });
 
     m_playbackInfoToken = m_session.PlaybackInfoChanged([](GlobalSystemMediaTransportControlsSession session, PlaybackInfoChangedEventArgs args) {

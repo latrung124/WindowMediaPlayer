@@ -6,10 +6,12 @@
 */
 
 #include "WindowMediaService.h"
+#include "WindowMediaService/IWindowMediaServiceListener.h"
 
 void WindowMediaService::start()
 {
-    m_windowSystemMedia.systemInit();
+    m_windowSystemMedia = std::make_unique<WindowSystemMedia>(this);
+    m_windowSystemMedia->systemInit();
 }
 
 void WindowMediaService::registerListener(const IServiceListener *listener)
@@ -49,4 +51,15 @@ void WindowMediaService::unregisterListener(const IServiceListener *listener)
 
 void WindowMediaService::getMediaInfo()
 {
+}
+
+void WindowMediaService::systemMediaPropertiesChanged(const WindowServiceUtils::WMediaInfo &WMediaInfo)
+{
+    for (const auto& listener : m_listeners)
+    {
+        if (auto l = dynamic_cast<IWindowMediaServiceListener*>(listener))
+        {
+            l->onMediaInfoChanged(WMediaInfo);
+        }
+    }
 }
