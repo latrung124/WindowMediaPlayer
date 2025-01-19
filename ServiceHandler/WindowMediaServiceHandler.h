@@ -26,6 +26,9 @@ public:
     ~WindowMediaServiceHandler();
     static WindowMediaServiceHandler& getInstance();
 
+    void start();
+    void stop();
+
     void enqueueMessage(ServiceMessageUPtr message);
     void processMessage(ServiceMessageUPtr message);
 

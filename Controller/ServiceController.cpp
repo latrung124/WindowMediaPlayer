@@ -11,6 +11,7 @@
 #include "IServiceFactory.h"
 
 #include "WindowMediaService/IWindowMediaService.h"
+#include "WindowMediaServiceHandler.h"
 
 #include "ServiceListener/WindowMediaService/WindowMediaServiceListener.h"
 
@@ -49,19 +50,19 @@ void ServiceController::initializeServices()
             return;
         }
 
-        IService* service = serviceFactory->factoryMethod(serviceName);
-        if (!service)
-        {
-            continue;
+        const auto service = serviceFactory->factoryMethod(serviceName);
+        if (!service) {
+            return;
         }
 
-        m_services[serviceName] = ServiceUPtr(service);
+        m_services[serviceName] = ServiceUPtr(std::move(service)); // TODO: Apply rule of five for services.
         if (serviceName == "WindowMediaService")
         {
-            IWindowMediaService* windowMediaService = dynamic_cast<IWindowMediaService*>(service);
-            if (windowMediaService)
-            {
+            if (auto windowMediaService = dynamic_cast<IWindowMediaService*>(m_services[serviceName].get())) {
                 windowMediaService->start();
+                // Start WindowMediaServiceHandler
+                WindowMediaServiceHandler::getInstance().start();
+                // TODO: stop handler when service died.
             }
         }
     }

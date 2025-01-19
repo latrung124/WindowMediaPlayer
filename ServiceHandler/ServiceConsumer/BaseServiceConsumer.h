@@ -23,6 +23,9 @@ public:
     BaseServiceConsumer(BaseServiceConsumer&&) = delete;
     BaseServiceConsumer& operator=(BaseServiceConsumer&&) = delete;
 
+    virtual void start() = 0;
+    virtual void stop() = 0;
+
     virtual void addMessage(std::unique_ptr<BaseServiceMessage> msg) = 0;
 };
 

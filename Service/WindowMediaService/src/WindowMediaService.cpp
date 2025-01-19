@@ -11,7 +11,6 @@
 void WindowMediaService::start()
 {
     m_windowSystemMedia = std::make_unique<WindowSystemMedia>(this);
-    m_windowSystemMedia->systemInit();
 }
 
 void WindowMediaService::registerListener(const IServiceListener *listener)

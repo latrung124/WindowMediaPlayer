@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 
 #include "Controller/ModuleController.h"
+#include "ServiceController.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,6 +22,8 @@ int main(int argc, char *argv[])
         Qt::QueuedConnection);
 
     controller.initialize();
+
+    ServiceController::getInstance().initialize();
 
     return app.exec();
 }

@@ -26,6 +26,16 @@ WindowMediaServiceHandler& WindowMediaServiceHandler::getInstance()
     return instance;
 }
 
+void WindowMediaServiceHandler::start()
+{
+    m_serviceConsumer->start();
+}
+
+void WindowMediaServiceHandler::stop()
+{
+    m_serviceConsumer->stop();
+}
+
 void WindowMediaServiceHandler::enqueueMessage(ServiceMessageUPtr message)
 {
     m_serviceConsumer->addMessage(std::move(message));

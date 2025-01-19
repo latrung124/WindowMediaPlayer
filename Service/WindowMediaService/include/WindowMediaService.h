@@ -18,6 +18,7 @@
 class WMEDIA_SERVICE_API WindowMediaService : public IWindowMediaService
 {
 public:
+    WindowMediaService() = default;
     virtual ~WindowMediaService() = default;
 
     virtual void registerListener(const IServiceListener *listener) override;

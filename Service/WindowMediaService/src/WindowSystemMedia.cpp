@@ -36,6 +36,7 @@ static WMediaPlaybackType convertPlaybackType(Windows::Foundation::IReference<Wi
 WindowSystemMedia::WindowSystemMedia(WindowMediaService* service)
     : m_service(service)
 {
+    systemInit();
 }
 
 bool WindowSystemMedia::systemInit()

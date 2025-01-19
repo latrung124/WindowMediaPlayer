@@ -32,8 +32,8 @@ public:
     WindowMediaServiceConsumer(WindowMediaServiceConsumer&&) = delete;
     WindowMediaServiceConsumer& operator=(WindowMediaServiceConsumer&&) = delete;
 
-    void start();
-    void stop();
+    void start() override;
+    void stop() override;
 
     void addMessage(ServiceMessageUPtr message) override;
 
