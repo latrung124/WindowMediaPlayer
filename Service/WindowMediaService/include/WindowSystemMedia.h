@@ -22,6 +22,12 @@ public:
     WindowSystemMedia(WindowMediaService* service);
     ~WindowSystemMedia() = default;
 
+    WindowSystemMedia(const WindowSystemMedia &service) = delete;
+    WindowSystemMedia& operator=(const WindowSystemMedia &&service) noexcept = delete;
+
+    WindowSystemMedia(WindowSystemMedia &&service) noexcept;
+    WindowSystemMedia& operator=(WindowSystemMedia &&service) noexcept;
+
     bool systemInit();
 
 private:

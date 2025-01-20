@@ -31,6 +31,33 @@ static WMediaPlaybackType convertPlaybackType(Windows::Foundation::IReference<Wi
     }
 }
 
+} // namespace
+
+WindowSystemMedia::WindowSystemMedia(WindowSystemMedia &&service) noexcept
+{
+    m_service = service.m_service;
+    service.m_service = nullptr;
+    m_sessionManager = GlobalSystemMediaTransportControlsSessionManager(service.m_sessionManager);
+    service.m_sessionManager = nullptr;
+    m_session = GlobalSystemMediaTransportControlsSession(service.m_session);
+    service.m_session = nullptr;
+    m_sessionChangedToken = service.m_sessionChangedToken;
+    m_mediaPropertiesToken = service.m_mediaPropertiesToken;
+    m_playbackInfoToken = service.m_playbackInfoToken;
+}
+
+WindowSystemMedia& WindowSystemMedia::operator=(WindowSystemMedia &&service) noexcept
+{
+    m_service = service.m_service;
+    m_sessionManager = GlobalSystemMediaTransportControlsSessionManager(service.m_sessionManager);
+    service.m_sessionManager = nullptr;
+    m_session = GlobalSystemMediaTransportControlsSession(service.m_session);
+    service.m_session = nullptr;
+    m_sessionChangedToken = std::move(service.m_sessionChangedToken);
+    m_mediaPropertiesToken = std::move(service.m_mediaPropertiesToken);
+    m_playbackInfoToken = std::move(service.m_playbackInfoToken);
+
+    return *this;
 }
 
 WindowSystemMedia::WindowSystemMedia(WindowMediaService* service)

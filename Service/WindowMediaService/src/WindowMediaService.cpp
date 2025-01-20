@@ -8,6 +8,20 @@
 #include "WindowMediaService.h"
 #include "WindowMediaService/IWindowMediaServiceListener.h"
 
+WindowMediaService::WindowMediaService(WindowMediaService &&service) noexcept
+{
+    m_windowSystemMedia = std::move(service.m_windowSystemMedia);
+    m_listeners = std::move(service.m_listeners);
+}
+
+WindowMediaService& WindowMediaService::operator=(WindowMediaService &&service) noexcept
+{
+    m_windowSystemMedia = std::move(service.m_windowSystemMedia);
+    m_listeners = std::move(service.m_listeners);
+
+    return *this;
+}
+
 void WindowMediaService::start()
 {
     m_windowSystemMedia = std::make_unique<WindowSystemMedia>(this);

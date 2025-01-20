@@ -19,7 +19,12 @@ class WMEDIA_SERVICE_API WindowMediaService : public IWindowMediaService
 {
 public:
     WindowMediaService() = default;
-    virtual ~WindowMediaService() = default;
+    ~WindowMediaService() = default;
+
+    WindowMediaService(const WindowMediaService &service) = delete;
+    WindowMediaService& operator=(const WindowMediaService &service) = delete;
+    WindowMediaService(WindowMediaService &&service) noexcept;
+    WindowMediaService& operator=(WindowMediaService &&service) noexcept;
 
     virtual void registerListener(const IServiceListener *listener) override;
     virtual void unregisterListener(const IServiceListener *listener) override;
