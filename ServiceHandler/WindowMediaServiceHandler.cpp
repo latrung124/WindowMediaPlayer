@@ -8,7 +8,10 @@
 #include "WindowMediaServiceHandler.h"
 
 #include "ServiceConsumer/WindowMediaService/WindowMediaServiceConsumer.h"
+#include "ServiceMessage/WindowMediaService/WMediaInfoMessage.h"
 #include "MediaModule/MediaPlayerModel.h"
+
+#include <QDebug>
 
 WindowMediaServiceHandler::WindowMediaServiceHandler()
     : m_serviceConsumer(std::make_unique<WindowMediaServiceConsumer>(this))
@@ -43,6 +46,21 @@ void WindowMediaServiceHandler::enqueueMessage(ServiceMessageUPtr message)
 
 void WindowMediaServiceHandler::processMessage(ServiceMessageUPtr message)
 {
-    // Process message here
-    m_mediaPlayerModel->update();
+    using namespace service_handler::service_message;
+    if (!message) {
+        return;
+    }
+
+    ServiceMessageId messageId = message->getId();
+    switch (messageId)
+    {
+    case ServiceMessageId::WMediaInfoMessage: {
+        if (auto mediaInfoMessage = dynamic_cast<WMediaInfoMessage*>(message.get())) {
+            m_mediaPlayerModel->updateMediaInfo(mediaInfoMessage->getMediaInfo());
+        }
+        break;
+    }
+    default:
+        break;
+    }
 }

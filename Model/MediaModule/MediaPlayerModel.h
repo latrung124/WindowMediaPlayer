@@ -8,6 +8,8 @@
 #ifndef MEDIA_PLAYER_MODEL_H
 #define MEDIA_PLAYER_MODEL_H
 
+#include "WindowMediaService/WindowServiceUtils.h"
+
 #include <QObject>
 #include <QString>
 
@@ -50,7 +52,7 @@ public:
     int trackNumber() const;
     void setTrackNumber(int trackNumber);
 
-    void update();
+    void updateMediaInfo(const WindowServiceUtils::WMediaInfo &wMediaInfo);
 
 signals:
     void titleChanged();

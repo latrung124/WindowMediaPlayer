@@ -18,10 +18,16 @@ MediaPlayerModel::~MediaPlayerModel()
 {
 }
 
-void MediaPlayerModel::update()
+void MediaPlayerModel::updateMediaInfo(const WindowServiceUtils::WMediaInfo &wMediaInfo)
 {
-    // Update media player model here
-    qDebug() << "Update media player model";
+    setTitle(QString::fromStdString(wMediaInfo.title));
+    setArtist(QString::fromStdString(wMediaInfo.artist));
+    setAlbumTitle(QString::fromStdString(wMediaInfo.albumTitle));
+    setAlbumArtist(QString::fromStdString(wMediaInfo.albumArtist));
+    setSubtitle(QString::fromStdString(wMediaInfo.subtitle));
+    // setGenres(QString::fromStdString(wMediaInfo.genres));
+    setTotalTracks(wMediaInfo.totalTracks);
+    setTrackNumber(wMediaInfo.trackNumber);
 }
 
 QString MediaPlayerModel::title() const
