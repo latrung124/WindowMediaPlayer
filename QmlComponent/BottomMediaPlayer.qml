@@ -37,7 +37,7 @@ Item {
         spacing: 0
 
         Item {
-            id: albumArtItem
+            id: mediaInfoItem
 
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -50,6 +50,67 @@ Item {
                 anchors {
                     verticalCenter: parent.verticalCenter
                     left: parent.left
+                }
+            }
+
+            Item {
+                id: songInfoItem
+
+                width: 120
+                height: 40
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: albumArtRect.right
+                    leftMargin: 4
+                }
+
+                ColumnLayout {
+                    id: songInfoLayout
+
+                    anchors.fill: parent
+                    spacing: 0
+
+                    Item {
+                        id: titleItem
+
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+
+                        Text {
+                            id: titleText
+
+                            text: qsTr("Hello World!")
+                            font {
+                                family: "Helvetica"
+                                pixelSize: 16
+                            }
+                            anchors.centerIn: parent
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            color: "#FFFFFF"
+                        }
+                    }
+
+                    Item {
+                        id: artistItem
+
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+
+                        Text {
+                            id: artistText
+
+                            text: qsTr("Im Trung!")
+                            font {
+                                family: "Helvetica"
+                                pixelSize: 14
+                            }
+                            anchors.centerIn: parent
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            color: "#888888"
+                        }
+                    }
                 }
             }
         }
