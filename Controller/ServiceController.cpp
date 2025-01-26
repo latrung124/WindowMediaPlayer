@@ -82,7 +82,13 @@ void ServiceController::registerListeners()
     }
 }
 
-void ServiceController::setEngine(const EnginePtr &engine)
+void ServiceController::onModuleLoadedSucceed(const EnginePtr &engine)
 {
     m_engine = engine;
+    initializeModels();
+}
+
+void ServiceController::initializeModels()
+{
+    // TODO: set some service models in qml
 }

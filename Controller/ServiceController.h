@@ -24,22 +24,26 @@ class ServiceController : public QObject
 
 public:
     using ServiceUPtr = std::unique_ptr<IService>;
-    using WEnginePtr = std::weak_ptr<QQmlApplicationEngine>;
+    using EngineWPtr = std::weak_ptr<QQmlApplicationEngine>;
     using EnginePtr = std::shared_ptr<QQmlApplicationEngine>;
 
     static ServiceController& getInstance();
     ~ServiceController();
 
     void initialize();
-    void setEngine(const EnginePtr &engine);
+
+public slots:
+    void onModuleLoadedSucceed(const EnginePtr &engine);
 
 private:
     ServiceController(QObject *parent = nullptr);
     void initializeServices();
     void registerListeners();
 
+    void initializeModels();
+
     std::unordered_map<std::string, ServiceUPtr> m_services;
-    WEnginePtr m_engine;
+    EngineWPtr m_engine;
 };
 
 #endif // SERVICE_CONTROLLER_H

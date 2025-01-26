@@ -30,7 +30,7 @@ public:
     EnginePtr engine() const;
 
 signals:
-    void moduleLoadedSucceed();
+    void moduleLoadedSucceed(const EnginePtr &engine);
     void moduleLoadedFailed();
     void moduleUnloaded();
 

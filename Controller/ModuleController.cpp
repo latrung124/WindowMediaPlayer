@@ -21,7 +21,6 @@ ModuleController::ModuleController(QObject *parent)
     startConnection();
 
     ServiceController::getInstance().initialize();
-    ServiceController::getInstance().setEngine(m_engine);
 }
 
 ModuleController::~ModuleController()
@@ -49,6 +48,24 @@ void ModuleController::startConnection() {
         &WindowController::close,
         this,
         [this]() { emit moduleUnloaded(); },
+        Qt::QueuedConnection);
+
+    QObject::connect(
+        m_engine.get(),
+        &QQmlApplicationEngine::objectCreated,
+        this,
+        [this](QObject *object, const QUrl &url) {
+            Q_UNUSED(url)
+            if (!object)
+                return;
+            emit moduleLoadedSucceed(m_engine); },
+        Qt::QueuedConnection);
+ 
+    QObject::connect(
+        this,
+        &ModuleController::moduleLoadedSucceed,
+        &ServiceController::getInstance(),
+        &ServiceController::onModuleLoadedSucceed,
         Qt::QueuedConnection);
 }
 
