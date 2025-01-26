@@ -16,6 +16,7 @@
 
 class IService;
 class IServiceListener;
+class QQmlApplicationEngine;
 
 class ServiceController : public QObject
 {
@@ -23,11 +24,14 @@ class ServiceController : public QObject
 
 public:
     using ServiceUPtr = std::unique_ptr<IService>;
+    using WEnginePtr = std::weak_ptr<QQmlApplicationEngine>;
+    using EnginePtr = std::shared_ptr<QQmlApplicationEngine>;
 
     static ServiceController& getInstance();
     ~ServiceController();
 
     void initialize();
+    void setEngine(const EnginePtr &engine);
 
 private:
     ServiceController(QObject *parent = nullptr);
@@ -35,6 +39,7 @@ private:
     void registerListeners();
 
     std::unordered_map<std::string, ServiceUPtr> m_services;
+    WEnginePtr m_engine;
 };
 
 #endif // SERVICE_CONTROLLER_H

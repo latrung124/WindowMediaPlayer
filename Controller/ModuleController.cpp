@@ -7,7 +7,9 @@
 
 #include "ModuleController.h"
 #include "Utils/ModuleUtility.h"
+
 #include "WindowController.h"
+#include "ServiceController.h"
 
 #include "QQmlContext"
 
@@ -17,6 +19,9 @@ ModuleController::ModuleController(QObject *parent)
     , m_windowController(std::make_shared<WindowController>(m_engine))
 {
     startConnection();
+
+    ServiceController::getInstance().initialize();
+    ServiceController::getInstance().setEngine(m_engine);
 }
 
 ModuleController::~ModuleController()

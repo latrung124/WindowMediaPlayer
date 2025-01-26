@@ -20,6 +20,7 @@ class WindowController : public QObject
 
 public:
     using WEnginePtr = std::shared_ptr<QQmlApplicationEngine>;
+
     explicit WindowController(const WEnginePtr &engine, QObject *parent = nullptr);
     ~WindowController();
 

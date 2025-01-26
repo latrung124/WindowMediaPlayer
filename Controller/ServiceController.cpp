@@ -81,3 +81,8 @@ void ServiceController::registerListeners()
         m_services[serviceName]->registerListener(new WindowMediaServiceListener());
     }
 }
+
+void ServiceController::setEngine(const EnginePtr &engine)
+{
+    m_engine = engine;
+}

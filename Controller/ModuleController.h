@@ -22,6 +22,7 @@ class ModuleController : public QObject
 public:
     using EnginePtr = std::shared_ptr<QQmlApplicationEngine>;
     using WindowControllerPtr = std::shared_ptr<WindowController>;
+
     explicit ModuleController(QObject *parent = nullptr);
     ~ModuleController();
 
@@ -39,6 +40,7 @@ private:
 
     void setContextProperties();
     void loadModule(const QString &moduleName, const QString &moduleComponent);
+
     EnginePtr m_engine;
     WindowControllerPtr m_windowController;
 };
