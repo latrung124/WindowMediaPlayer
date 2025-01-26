@@ -12,6 +12,7 @@
 
 #include <memory>
 
+class QObject;
 class BaseServiceMessage;
 class BaseServiceConsumer;
 class MediaPlayerModel;
@@ -31,6 +32,8 @@ public:
 
     void enqueueMessage(ServiceMessageUPtr message);
     void processMessage(ServiceMessageUPtr message);
+
+    QObject* getMediaPlayerModel() const;
 
 private:
     WindowMediaServiceHandler();

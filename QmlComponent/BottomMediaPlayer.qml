@@ -15,6 +15,8 @@ Item {
     implicitHeight: 115
     implicitWidth: 1366
 
+    property QtObject mediaPlayerModel: null
+
     Rectangle {
         id: backgroundRect
 
@@ -79,7 +81,7 @@ Item {
                         Text {
                             id: titleText
 
-                            text: qsTr("Hello World!")
+                            text: mediaPlayerModel ? mediaPlayerModel.title : ""
                             font {
                                 family: "Helvetica"
                                 pixelSize: 16
@@ -100,7 +102,7 @@ Item {
                         Text {
                             id: artistText
 
-                            text: qsTr("Im Trung!")
+                            text: mediaPlayerModel ? mediaPlayerModel.artist : ""
                             font {
                                 family: "Helvetica"
                                 pixelSize: 14

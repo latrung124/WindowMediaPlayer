@@ -64,6 +64,7 @@ ApplicationWindow {
 
     BottomMediaPlayer {
         id: bottomMediaPlayer
+        objectName: "bottomMediaPlayer"
 
         anchors {
             bottom: parent.bottom

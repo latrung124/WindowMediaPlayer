@@ -7,6 +7,8 @@
 
 #include "ServiceController.h"
 
+#include <QQmlApplicationEngine>
+
 #include "IService.h"
 #include "IServiceFactory.h"
 
@@ -91,4 +93,17 @@ void ServiceController::onModuleLoadedSucceed(const EnginePtr &engine)
 void ServiceController::initializeModels()
 {
     // TODO: set some service models in qml
+    const auto engine = m_engine.lock();
+    if (!engine)
+        return;
+ 
+    const auto rootObj = engine->rootObjects().first();
+    if (!rootObj)
+        return;
+
+    const auto bottomMediaPlayerObj = rootObj->findChild<QObject*>("bottomMediaPlayer");
+    if (!bottomMediaPlayerObj)
+        return;
+
+    bottomMediaPlayerObj->setProperty("mediaPlayerModel", QVariant::fromValue(WindowMediaServiceHandler::getInstance().getMediaPlayerModel()));
 }

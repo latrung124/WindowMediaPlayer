@@ -7,8 +7,6 @@
 
 #include "MediaModule/MediaPlayerModel.h"
 
-#include <QDebug>
-
 MediaPlayerModel::MediaPlayerModel(QObject *parent)
     : QObject(parent)
 {

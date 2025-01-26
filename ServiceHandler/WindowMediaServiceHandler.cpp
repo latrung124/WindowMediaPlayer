@@ -64,3 +64,8 @@ void WindowMediaServiceHandler::processMessage(ServiceMessageUPtr message)
         break;
     }
 }
+
+QObject* WindowMediaServiceHandler::getMediaPlayerModel() const
+{
+    return static_cast<QObject*>(m_mediaPlayerModel.get());
+}
