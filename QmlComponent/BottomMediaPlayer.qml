@@ -53,6 +53,20 @@ Item {
                     verticalCenter: parent.verticalCenter
                     left: parent.left
                 }
+                color: "transparent"
+                border {
+                    width: 1
+                    color: "#FFFFFF"
+                }
+                radius: 4
+                Image {
+                    id: albumArt
+
+                    width: parent.width - 2
+                    height: parent.height - 2
+                    source: `Resources/music-note.png`
+                    fillMode: Image.PreserveAspectFit
+                }
             }
 
             Item {

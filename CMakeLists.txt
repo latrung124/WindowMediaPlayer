@@ -128,6 +128,7 @@ qt_add_qml_module(appWindowMediaPlayer
         "QmlComponent/Resources/previous-button.png"
         "QmlComponent/Resources/shuffle-button.png"
         "QmlComponent/Resources/repeat-button.png"
+        "QmlComponent/Resources/music-note.png"
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
