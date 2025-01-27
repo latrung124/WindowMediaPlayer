@@ -18,6 +18,10 @@ using namespace Windows::Media::Control;
 using namespace WindowServiceUtils;
 
 static WMediaPlaybackType convertPlaybackType(Windows::Foundation::IReference<Windows::Media::MediaPlaybackType> playbackType) {
+    if (playbackType == nullptr) {
+        return WMediaPlaybackType::Unknown;
+    }
+
     const auto playbackTypeValue = playbackType.Value();
     switch (playbackTypeValue) {
     case Windows::Media::MediaPlaybackType::Music:
@@ -112,6 +116,7 @@ void WindowSystemMedia::registerSessionPropertiesChangedEvents()
         //TODO: handle media properties changed
         const auto mediaPropertiesAsync = session.TryGetMediaPropertiesAsync();
         const auto mediaProperties = mediaPropertiesAsync.get();
+
         WMediaInfo mediaInfo{
             .albumTitle = winrt::to_string(mediaProperties.AlbumTitle()),
             .albumArtist = winrt::to_string(mediaProperties.AlbumArtist()),
