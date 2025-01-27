@@ -72,12 +72,12 @@ Item {
             Item {
                 id: songInfoItem
 
-                width: 120
+                width: 200
                 height: 40
                 anchors {
                     verticalCenter: parent.verticalCenter
                     left: albumArtRect.right
-                    leftMargin: 4
+                    leftMargin: 15
                 }
 
                 ColumnLayout {
@@ -95,15 +95,17 @@ Item {
                         Text {
                             id: titleText
 
+                            anchors.fill: parent
+                            horizontalAlignment: Text.AlignLeft
+                            verticalAlignment: Text.AlignVCenter
                             text: mediaPlayerModel ? mediaPlayerModel.title : ""
                             font {
                                 family: "Helvetica"
                                 pixelSize: 16
                             }
-                            anchors.centerIn: parent
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
                             color: "#FFFFFF"
+                            maximumLineCount: 1
+                            elide: Text.ElideRight
                         }
                     }
 
@@ -116,15 +118,17 @@ Item {
                         Text {
                             id: artistText
 
+                            anchors.fill: parent
+                            horizontalAlignment: Text.AlignLeft
+                            verticalAlignment: Text.AlignVCenter
                             text: mediaPlayerModel ? mediaPlayerModel.artist : ""
                             font {
                                 family: "Helvetica"
                                 pixelSize: 14
                             }
-                            anchors.centerIn: parent
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
                             color: "#888888"
+                            maximumLineCount: 1
+                            elide: Text.ElideRight
                         }
                     }
                 }
