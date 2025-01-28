@@ -48,7 +48,7 @@ namespace WindowServiceUtils
         std::vector<std::string> genres = {};
         WMediaPlaybackType playbackType = WMediaPlaybackType::Unknown;
         std::string subtitle = "";
-        std::vector<uint8_t> thumbnail = {};
+        std::string thumbnail = "";
         std::string title = "";
         int32_t trackNumber = 0;
     };

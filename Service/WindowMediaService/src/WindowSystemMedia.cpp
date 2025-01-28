@@ -8,6 +8,11 @@
 #include "WindowMediaService.h"
 #include "WindowSystemMedia.h"
 
+#include <iostream>
+#include <fstream>
+#include <filesystem>
+
+#include <winrt/Windows.Storage.Streams.h>
 #include <winrt/Windows.Foundation.h>
 
 namespace {
@@ -15,6 +20,8 @@ namespace {
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::Media::Control;
+using namespace Windows::Storage;
+using namespace Windows::Storage::Streams;
 using namespace WindowServiceUtils;
 
 static WMediaPlaybackType convertPlaybackType(Windows::Foundation::IReference<Windows::Media::MediaPlaybackType> playbackType) {
@@ -32,6 +39,44 @@ static WMediaPlaybackType convertPlaybackType(Windows::Foundation::IReference<Wi
         return WMediaPlaybackType::Image;
     default:
         return WMediaPlaybackType::Unknown;
+    }
+}
+
+std::string saveThumbnailToFile(const GlobalSystemMediaTransportControlsSessionMediaProperties& mediaProperties) {
+    try {
+        auto thumbnailReference = mediaProperties.Thumbnail();
+        if (!thumbnailReference) {
+            std::wcerr << L"No thumbnail available." << std::endl;
+            return "";
+        }
+
+        auto stream = thumbnailReference.OpenReadAsync().get();
+        if (!stream) {
+            std::wcerr << L"Failed to open thumbnail stream." << std::endl;
+            return "";
+        }
+
+        auto outputPath = std::filesystem::temp_directory_path().append(L"thumbnail.jpg").string();
+        auto size = static_cast<size_t>(stream.Size());
+        std::vector<uint8_t> buffer(size);
+
+        auto reader = DataReader(stream);
+        reader.LoadAsync(static_cast<uint32_t>(size)).get();
+        reader.ReadBytes(buffer);
+
+        std::ofstream outputFile(outputPath, std::ios::binary);
+        if (outputFile.is_open()) {
+            outputFile.write(reinterpret_cast<const char*>(buffer.data()), buffer.size());
+            outputFile.close();
+            std::cout << "Thumbnail saved to: " << outputPath << std::endl;
+            return outputPath;
+        } else {
+            std::wcerr << L"Failed to open output file." << std::endl;
+            return "";
+        }
+    } catch (const hresult_error& ex) {
+        std::wcerr << L"Error: " << ex.message().c_str() << std::endl;
+        return "";
     }
 }
 
@@ -125,7 +170,7 @@ void WindowSystemMedia::registerSessionPropertiesChangedEvents()
             .genres = {}, // TODO: handle genres data
             .playbackType = convertPlaybackType(mediaProperties.PlaybackType()),
             .subtitle = winrt::to_string(mediaProperties.Subtitle()),
-            .thumbnail = {}, // TODO: handle thumbnail data
+            .thumbnail = saveThumbnailToFile(mediaProperties),
             .title = winrt::to_string(mediaProperties.Title()),
             .trackNumber = mediaProperties.TrackNumber(),
         };
