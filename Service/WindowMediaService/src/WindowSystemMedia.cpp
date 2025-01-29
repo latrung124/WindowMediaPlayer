@@ -11,6 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
+#include <random>
 
 #include <winrt/Windows.Storage.Streams.h>
 #include <winrt/Windows.Foundation.h>
@@ -42,6 +43,14 @@ static WMediaPlaybackType convertPlaybackType(Windows::Foundation::IReference<Wi
     }
 }
 
+int generateRandom7DigitNumber() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1000000, 9999999);  // Range for a 7-digit number
+
+    return dist(gen);
+}
+
 std::string saveThumbnailToFile(const GlobalSystemMediaTransportControlsSessionMediaProperties& mediaProperties) {
     try {
         auto thumbnailReference = mediaProperties.Thumbnail();
@@ -56,7 +65,8 @@ std::string saveThumbnailToFile(const GlobalSystemMediaTransportControlsSessionM
             return "";
         }
 
-        auto outputPath = std::filesystem::temp_directory_path().append(L"thumbnail.jpg").string();
+        auto temporaryFileName = std::to_string(generateRandom7DigitNumber()) + "_thumbnail.jpg";
+        auto outputPath = std::filesystem::temp_directory_path().append(temporaryFileName).string();
         auto size = static_cast<size_t>(stream.Size());
         std::vector<uint8_t> buffer(size);
 
@@ -162,6 +172,8 @@ void WindowSystemMedia::registerSessionPropertiesChangedEvents()
         const auto mediaPropertiesAsync = session.TryGetMediaPropertiesAsync();
         const auto mediaProperties = mediaPropertiesAsync.get();
 
+        removeOldTempThumbnail();
+
         WMediaInfo mediaInfo{
             .albumTitle = winrt::to_string(mediaProperties.AlbumTitle()),
             .albumArtist = winrt::to_string(mediaProperties.AlbumArtist()),
@@ -174,6 +186,7 @@ void WindowSystemMedia::registerSessionPropertiesChangedEvents()
             .title = winrt::to_string(mediaProperties.Title()),
             .trackNumber = mediaProperties.TrackNumber(),
         };
+        m_thumbnailPath = mediaInfo.thumbnail;
         m_service->systemMediaPropertiesChanged(mediaInfo);
     });
 
@@ -186,4 +199,11 @@ void WindowSystemMedia::registerSessionPropertiesChangedEvents()
             //TODO: handle play event
         }
     });
+}
+
+void WindowSystemMedia::removeOldTempThumbnail()
+{
+    if (!m_thumbnailPath.empty()) {
+        std::filesystem::remove(m_thumbnailPath);
+    }
 }

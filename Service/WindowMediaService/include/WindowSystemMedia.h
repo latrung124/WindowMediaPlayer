@@ -34,6 +34,8 @@ private:
     void registerCurrentSessionChangedEvents();
     void registerSessionPropertiesChangedEvents();
 
+    void removeOldTempThumbnail();
+
     GlobalSystemMediaTransportControlsSessionManager m_sessionManager{ nullptr };
     GlobalSystemMediaTransportControlsSession m_session{ nullptr };
 
@@ -42,6 +44,7 @@ private:
     winrt::event_token m_playbackInfoToken;
 
     WindowMediaService* m_service;
+    std::string m_thumbnailPath = "";
 };
 
 #endif // WINDOW_SYSTEM_MEDIA_H

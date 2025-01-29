@@ -12,6 +12,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QUrl>
 
 class MediaPlayerModel : public QObject
 {
@@ -24,6 +25,7 @@ class MediaPlayerModel : public QObject
     Q_PROPERTY(QString genres READ genres WRITE setGenres NOTIFY genresChanged)
     Q_PROPERTY(int totalTracks READ totalTracks WRITE setTotalTracks NOTIFY totalTracksChanged)
     Q_PROPERTY(int trackNumber READ trackNumber WRITE setTrackNumber NOTIFY trackNumberChanged)
+    Q_PROPERTY(QUrl thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
 
 public:
     MediaPlayerModel(QObject *parent = nullptr);
@@ -52,6 +54,9 @@ public:
     int trackNumber() const;
     void setTrackNumber(int trackNumber);
 
+    QUrl thumbnail() const;
+    void setThumbnail(const QUrl &thumbnail);
+
     void updateMediaInfo(const WindowServiceUtils::WMediaInfo &wMediaInfo);
 
 signals:
@@ -63,6 +68,7 @@ signals:
     void genresChanged();
     void totalTracksChanged();
     void trackNumberChanged();
+    void thumbnailChanged();
 
 private:
     QString m_title;
@@ -71,8 +77,9 @@ private:
     QString m_albumArtist;
     QString m_subtitle;
     QString m_genres;
-    int m_totalTracks;
-    int m_trackNumber;
+    int m_totalTracks = 0;
+    int m_trackNumber = 0;
+    QUrl m_thumbnail;
 };
 
 #endif // MEDIA_PLAYER_MODEL_H

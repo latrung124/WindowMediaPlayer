@@ -64,8 +64,9 @@ Item {
 
                     width: parent.width - 2
                     height: parent.height - 2
-                    source: `Resources/music-note.png`
+                    source: mediaPlayerModel ? (mediaPlayerModel.thumbnail === "" ? internal.musicNote : mediaPlayerModel.thumbnail) : internal.musicNote
                     fillMode: Image.PreserveAspectFit
+                    cache: false
                 }
             }
 
@@ -166,5 +167,6 @@ Item {
 
         readonly property int margin: 10
         readonly property int imageSize: 60
+        readonly property string musicNote: `Resources/music-note.png`
     }
 }

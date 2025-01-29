@@ -26,6 +26,7 @@ void MediaPlayerModel::updateMediaInfo(const WindowServiceUtils::WMediaInfo &wMe
     // setGenres(QString::fromStdString(wMediaInfo.genres));
     setTotalTracks(wMediaInfo.totalTracks);
     setTrackNumber(wMediaInfo.trackNumber);
+    setThumbnail(QUrl::fromLocalFile(QString::fromStdString(wMediaInfo.thumbnail)));
 }
 
 QString MediaPlayerModel::title() const
@@ -137,5 +138,19 @@ void MediaPlayerModel::setTrackNumber(int trackNumber)
     {
         m_trackNumber = trackNumber;
         emit trackNumberChanged();
+    }
+}
+
+QUrl MediaPlayerModel::thumbnail() const
+{
+    return m_thumbnail;
+}
+
+void MediaPlayerModel::setThumbnail(const QUrl &thumbnail)
+{
+    if (m_thumbnail != thumbnail)
+    {
+        m_thumbnail = thumbnail;
+        emit thumbnailChanged();
     }
 }
