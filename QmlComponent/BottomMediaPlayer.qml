@@ -8,6 +8,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 
 Item {
     id: root
@@ -64,9 +65,23 @@ Item {
 
                     width: parent.width - 2
                     height: parent.height - 2
+                    anchors.centerIn: parent
                     source: mediaPlayerModel ? (mediaPlayerModel.thumbnail === "" ? internal.musicNote : mediaPlayerModel.thumbnail) : internal.musicNote
                     fillMode: Image.PreserveAspectFit
                     cache: false
+                    layer.enabled: true
+                    layer.effect: OpacityMask {
+                        maskSource: Item {
+                            width: albumArt.width
+                            height: albumArt.height
+                            Rectangle {
+                                anchors.centerIn: parent
+                                width: albumArt.width
+                                height: albumArt.height
+                                radius: 4
+                            }
+                        }
+                    }
                 }
             }
 
