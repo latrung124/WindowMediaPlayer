@@ -15,6 +15,14 @@ Item {
     implicitHeight: 50
     implicitWidth: 264 // 32 per button * 4 normal buttons + 22 spacing + 48 size of play/pause button
 
+    property bool isShuffleEnabled: false
+    property bool isRepeatEnabled: false
+    property bool isPlaying: false
+    property bool isPlayingEnabled: false
+    property bool isPauseEnabled: false
+    property bool isPreviousEnabled: false
+    property bool isNextEnabled: false
+
     RowLayout {
         id: layout
 
@@ -27,7 +35,7 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             iconSource: `Resources/shuffle-button.png`
-            iconColor: "#666666"
+            iconColor: isShuffleEnabled ? internal.enableColor : internal.disableColor
             isShowIcon: true
             isShowBackground: true
         }
@@ -38,7 +46,7 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             iconSource: `Resources/previous-button.png`
-            iconColor: "#666666"
+            iconColor: isPreviousEnabled ? internal.enableColor : internal.disableColor
             isShowIcon: true
             isShowBackground: true
         }
@@ -48,8 +56,8 @@ Item {
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-            iconSource: `Resources/play-button.png`
-            iconColor: "#666666"
+            iconSource: isPlaying ? `Resources/pause-button.png` : `Resources/play-button.png`
+            iconColor: (isPlayingEnabled || isPauseEnabled) ? internal.enableColor : internal.disableColor
             isShowIcon: true
             isShowBackground: true
         }
@@ -60,7 +68,7 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             iconSource: `Resources/next-button.png`
-            iconColor: "#666666"
+            iconColor: isNextEnabled ? internal.enableColor : internal.disableColor
             isShowIcon: true
             isShowBackground: true
         }
@@ -71,9 +79,16 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
             iconSource: `Resources/repeat-button.png`
-            iconColor: "#666666"
+            iconColor: isRepeatEnabled ? internal.enableColor : internal.disableColor
             isShowIcon: true
             isShowBackground: true
         }
+    }
+
+    QtObject {
+        id: internal
+
+        readonly property color enableColor: "#FFFFFF"
+        readonly property color disableColor: "#666666"
     }
 }

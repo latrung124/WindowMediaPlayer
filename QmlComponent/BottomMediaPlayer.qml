@@ -154,6 +154,13 @@ Item {
         MediaControl {
             id: mediaControl
 
+            isPlaying: mediaPlayerModel ? mediaPlayerModel.isPlaying : false
+            isPlayingEnabled: mediaPlayerModel ? mediaPlayerModel.isPlayingEnabled : false
+            isPauseEnabled: mediaPlayerModel ? mediaPlayerModel.isPauseEnabled : false
+            isShuffleEnabled: mediaPlayerModel ? mediaPlayerModel.isShuffleEnabled : false
+            isRepeatEnabled: mediaPlayerModel ? mediaPlayerModel.isRepeatEnabled : false
+            isPreviousEnabled: mediaPlayerModel ? mediaPlayerModel.isPreviousEnabled : false
+            isNextEnabled: mediaPlayerModel ? mediaPlayerModel.isNextEnabled : false
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
         }
 

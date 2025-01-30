@@ -222,11 +222,20 @@ void WindowSystemMedia::registerSessionPropertiesChangedEvents()
         WMediaPlaybackAutoRepeatMode wRepeatMode = repeatMode == nullptr ? WMediaPlaybackAutoRepeatMode::None : static_cast<WMediaPlaybackAutoRepeatMode>(repeatMode.Value());
         WMediaPlaybackStatus wPlaybackStatus = static_cast<WMediaPlaybackStatus>(playbackStatus);
         WMediaPlaybackType wPlaybackType = convertPlaybackType(playbackType);
+
+        bool isShuffled = false;
+        if (playbackInfo.IsShuffleActive()) {
+            isShuffled = playbackInfo.IsShuffleActive().Value();
+        }
+        double playbackRate = 0.0;
+        if (playbackInfo.PlaybackRate()) {
+            playbackRate = playbackInfo.PlaybackRate().Value();
+        }
         WPlaybackInfo wPlaybackInfo{
             .autoRepeatMode = wRepeatMode,
             .playbackControls = wPlaybackControls,
-            .isShuffled = playbackInfo.IsShuffleActive().Value(), // TODO: check nullable
-            .playbackRate = playbackInfo.PlaybackRate().Value(), // TODO: check nullable
+            .isShuffled = isShuffled,
+            .playbackRate = playbackRate,
             .playbackStatus = wPlaybackStatus,
             .playbackType = wPlaybackType,
        };
