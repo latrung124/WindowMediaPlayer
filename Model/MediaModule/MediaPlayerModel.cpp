@@ -29,6 +29,18 @@ void MediaPlayerModel::updateMediaInfo(const WindowServiceUtils::WMediaInfo &wMe
     setThumbnail(QUrl::fromLocalFile(QString::fromStdString(wMediaInfo.thumbnail)));
 }
 
+void MediaPlayerModel::updatePlaybackInfo(const WindowServiceUtils::WPlaybackInfo &playbackInfo)
+{
+    auto isPlaying = playbackInfo.playbackStatus == WindowServiceUtils::WMediaPlaybackStatus::Playing;
+    setIsPlaying(isPlaying);
+    setIsNextEnabled(playbackInfo.playbackControls.isNextEnabled);
+    setIsPreviousEnabled(playbackInfo.playbackControls.isPreviousEnabled);
+    setIsPauseEnabled(playbackInfo.playbackControls.isPauseEnabled);
+    setIsPlayEnabled(playbackInfo.playbackControls.isPlayEnabled);
+    setIsRepeatEnabled(playbackInfo.playbackControls.isRepeatEnabled);
+    setIsShuffleEnabled(playbackInfo.isShuffled);
+}
+
 QString MediaPlayerModel::title() const
 {
     return m_title;
@@ -152,5 +164,103 @@ void MediaPlayerModel::setThumbnail(const QUrl &thumbnail)
     {
         m_thumbnail = thumbnail;
         emit thumbnailChanged();
+    }
+}
+
+bool MediaPlayerModel::isPlaying() const
+{
+    return m_isPlaying;
+}
+
+void MediaPlayerModel::setIsPlaying(bool isPlaying)
+{
+    if (m_isPlaying != isPlaying)
+    {
+        m_isPlaying = isPlaying;
+        emit isPlayingChanged();
+    }
+}
+
+bool MediaPlayerModel::isNextEnabled() const
+{
+    return m_isNextEnabled;
+}
+
+void MediaPlayerModel::setIsNextEnabled(bool isNextEnabled)
+{
+    if (m_isNextEnabled != isNextEnabled)
+    {
+        m_isNextEnabled = isNextEnabled;
+        emit isNextEnabledChanged();
+    }
+}
+
+bool MediaPlayerModel::isPreviousEnabled() const
+{
+    return m_isPreviousEnabled;
+}
+
+void MediaPlayerModel::setIsPreviousEnabled(bool isPreviousEnabled)
+{
+    if (m_isPreviousEnabled != isPreviousEnabled)
+    {
+        m_isPreviousEnabled = isPreviousEnabled;
+        emit isPreviousEnabledChanged();
+    }
+}
+
+bool MediaPlayerModel::isPauseEnabled() const
+{
+    return m_isPauseEnabled;
+}
+
+void MediaPlayerModel::setIsPauseEnabled(bool isPauseEnabled)
+{
+    if (m_isPauseEnabled != isPauseEnabled)
+    {
+        m_isPauseEnabled = isPauseEnabled;
+        emit isPauseEnabledChanged();
+    }
+}
+
+bool MediaPlayerModel::isPlayEnabled() const
+{
+    return m_isPlayEnabled;
+}
+
+void MediaPlayerModel::setIsPlayEnabled(bool isPlayEnabled)
+{
+    if (m_isPlayEnabled != isPlayEnabled)
+    {
+        m_isPlayEnabled = isPlayEnabled;
+        emit isPlayEnabledChanged();
+    }
+}
+
+bool MediaPlayerModel::isRepeatEnabled() const
+{
+    return m_isRepeatEnabled;
+}
+
+void MediaPlayerModel::setIsRepeatEnabled(bool isRepeatEnabled)
+{
+    if (m_isRepeatEnabled != isRepeatEnabled)
+    {
+        m_isRepeatEnabled = isRepeatEnabled;
+        emit isRepeatEnabledChanged();
+    }
+}
+
+bool MediaPlayerModel::isShuffleEnabled() const
+{
+    return m_isShuffleEnabled;
+}
+
+void MediaPlayerModel::setIsShuffleEnabled(bool isShuffleEnabled)
+{
+    if (m_isShuffleEnabled != isShuffleEnabled)
+    {
+        m_isShuffleEnabled = isShuffleEnabled;
+        emit isShuffleEnabledChanged();
     }
 }

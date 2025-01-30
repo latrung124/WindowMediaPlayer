@@ -76,3 +76,15 @@ void WindowMediaService::systemMediaPropertiesChanged(const WindowServiceUtils::
         }
     }
 }
+
+
+void WindowMediaService::systemPlaybackInfoChanged(const WindowServiceUtils::WPlaybackInfo &playbackInfo)
+{
+    for (const auto& listener : m_listeners)
+    {
+        if (auto l = dynamic_cast<IWindowMediaServiceListener*>(listener))
+        {
+            l->onPlaybackInfoChanged(playbackInfo);
+        }
+    }
+}

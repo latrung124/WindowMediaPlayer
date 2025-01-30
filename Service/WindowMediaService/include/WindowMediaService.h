@@ -33,6 +33,7 @@ public:
     virtual void getMediaInfo() override;
 
     void systemMediaPropertiesChanged(const WindowServiceUtils::WMediaInfo &WMediaInfo);
+    void systemPlaybackInfoChanged(const WindowServiceUtils::WPlaybackInfo &playbackInfo);
 
 private:
     std::unique_ptr<WindowSystemMedia> m_windowSystemMedia = nullptr;

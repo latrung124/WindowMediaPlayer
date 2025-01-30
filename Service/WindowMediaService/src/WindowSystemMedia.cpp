@@ -190,14 +190,48 @@ void WindowSystemMedia::registerSessionPropertiesChangedEvents()
         m_service->systemMediaPropertiesChanged(mediaInfo);
     });
 
-    m_playbackInfoToken = m_session.PlaybackInfoChanged([](GlobalSystemMediaTransportControlsSession session, PlaybackInfoChangedEventArgs args) {
+    m_playbackInfoToken = m_session.PlaybackInfoChanged([this](GlobalSystemMediaTransportControlsSession session, PlaybackInfoChangedEventArgs args) {
         auto playbackInfo = session.GetPlaybackInfo();
-        if (playbackInfo.PlaybackStatus() == GlobalSystemMediaTransportControlsSessionPlaybackStatus::Paused) {
-            //TODO: handle pause event
+        auto playbackControls = playbackInfo.Controls();
+        auto playbackStatus = playbackInfo.PlaybackStatus();
+        auto playbackType = playbackInfo.PlaybackType();
+        auto repeatMode = playbackInfo.AutoRepeatMode();
+
+        if (!playbackControls) {
+            return;
         }
-        else if (playbackInfo.PlaybackStatus() == GlobalSystemMediaTransportControlsSessionPlaybackStatus::Playing) {
-            //TODO: handle play event
-        }
+
+        WPlaybackControls wPlaybackControls{
+            .isChannelDownEnabled = playbackControls.IsChannelDownEnabled(),
+            .isChannelUpEnabled = playbackControls.IsChannelUpEnabled(),
+            .isFastForwardEnabled = playbackControls.IsFastForwardEnabled(),
+            .isNextEnabled = playbackControls.IsNextEnabled(),
+            .isPauseEnabled = playbackControls.IsPauseEnabled(),
+            .isPlaybackPositionEnabled = playbackControls.IsPlaybackPositionEnabled(),
+            .isPlaybackRateEnabled = playbackControls.IsPlaybackRateEnabled(),
+            .isPlayEnabled = playbackControls.IsPlayEnabled(),
+            .isPlayPauseToggleEnabled = playbackControls.IsPlayPauseToggleEnabled(),
+            .isPreviousEnabled = playbackControls.IsPreviousEnabled(),
+            .isRecordEnabled = playbackControls.IsRecordEnabled(),
+            .isRepeatEnabled = playbackControls.IsRepeatEnabled(),
+            .isRewindEnabled = playbackControls.IsRewindEnabled(),
+            .isShuffleEnabled = playbackControls.IsShuffleEnabled(),
+            .isStopEnabled = playbackControls.IsStopEnabled(),
+        };
+
+        WMediaPlaybackAutoRepeatMode wRepeatMode = repeatMode == nullptr ? WMediaPlaybackAutoRepeatMode::None : static_cast<WMediaPlaybackAutoRepeatMode>(repeatMode.Value());
+        WMediaPlaybackStatus wPlaybackStatus = static_cast<WMediaPlaybackStatus>(playbackStatus);
+        WMediaPlaybackType wPlaybackType = convertPlaybackType(playbackType);
+        WPlaybackInfo wPlaybackInfo{
+            .autoRepeatMode = wRepeatMode,
+            .playbackControls = wPlaybackControls,
+            .isShuffled = playbackInfo.IsShuffleActive().Value(), // TODO: check nullable
+            .playbackRate = playbackInfo.PlaybackRate().Value(), // TODO: check nullable
+            .playbackStatus = wPlaybackStatus,
+            .playbackType = wPlaybackType,
+       };
+
+        m_service->systemPlaybackInfoChanged(wPlaybackInfo);
     });
 }
 

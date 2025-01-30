@@ -9,6 +9,7 @@
 
 #include "ServiceConsumer/WindowMediaService/WindowMediaServiceConsumer.h"
 #include "ServiceMessage/WindowMediaService/WMediaInfoMessage.h"
+#include "ServiceMessage/WindowMediaService/WPlaybackInfoMessage.h"
 #include "MediaModule/MediaPlayerModel.h"
 
 #include <QDebug>
@@ -57,6 +58,12 @@ void WindowMediaServiceHandler::processMessage(ServiceMessageUPtr message)
     case ServiceMessageId::WMediaInfoMessage: {
         if (auto mediaInfoMessage = dynamic_cast<WMediaInfoMessage*>(message.get())) {
             m_mediaPlayerModel->updateMediaInfo(mediaInfoMessage->getMediaInfo());
+        }
+        break;
+    }
+    case ServiceMessageId::WPlaybackInfoMessage: {
+        if (auto playbackInfoMessage = dynamic_cast<WPlaybackInfoMessage*>(message.get())) {
+            m_mediaPlayerModel->updatePlaybackInfo(playbackInfoMessage->getWPlaybackInfo());
         }
         break;
     }

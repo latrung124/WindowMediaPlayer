@@ -26,6 +26,13 @@ class MediaPlayerModel : public QObject
     Q_PROPERTY(int totalTracks READ totalTracks WRITE setTotalTracks NOTIFY totalTracksChanged)
     Q_PROPERTY(int trackNumber READ trackNumber WRITE setTrackNumber NOTIFY trackNumberChanged)
     Q_PROPERTY(QUrl thumbnail READ thumbnail WRITE setThumbnail NOTIFY thumbnailChanged)
+    Q_PROPERTY(bool isPlaying READ isPlaying WRITE setIsPlaying NOTIFY isPlayingChanged)
+    Q_PROPERTY(bool isNextEnabled READ isNextEnabled WRITE setIsNextEnabled NOTIFY isNextEnabledChanged)
+    Q_PROPERTY(bool isPreviousEnabled READ isPreviousEnabled WRITE setIsPreviousEnabled NOTIFY isPreviousEnabledChanged)
+    Q_PROPERTY(bool isPauseEnabled READ isPauseEnabled WRITE setIsPauseEnabled NOTIFY isPauseEnabledChanged)
+    Q_PROPERTY(bool isPlayEnabled READ isPlayEnabled WRITE setIsPlayEnabled NOTIFY isPlayEnabledChanged)
+    Q_PROPERTY(bool isRepeatEnabled READ isRepeatEnabled WRITE setIsRepeatEnabled NOTIFY isRepeatEnabledChanged)
+    Q_PROPERTY(bool isShuffleEnabled READ isShuffleEnabled WRITE setIsShuffleEnabled NOTIFY isShuffleEnabledChanged)
 
 public:
     MediaPlayerModel(QObject *parent = nullptr);
@@ -57,7 +64,29 @@ public:
     QUrl thumbnail() const;
     void setThumbnail(const QUrl &thumbnail);
 
+    bool isPlaying() const;
+    void setIsPlaying(bool isPlaying);
+
+    bool isNextEnabled() const;
+    void setIsNextEnabled(bool isNextEnabled);
+
+    bool isPreviousEnabled() const;
+    void setIsPreviousEnabled(bool isPreviousEnabled);
+
+    bool isPauseEnabled() const;
+    void setIsPauseEnabled(bool isPauseEnabled);
+
+    bool isPlayEnabled() const;
+    void setIsPlayEnabled(bool isPlayEnabled);
+
+    bool isRepeatEnabled() const;
+    void setIsRepeatEnabled(bool isRepeatEnabled);
+
+    bool isShuffleEnabled() const;
+    void setIsShuffleEnabled(bool isShuffleEnabled);
+
     void updateMediaInfo(const WindowServiceUtils::WMediaInfo &wMediaInfo);
+    void updatePlaybackInfo(const WindowServiceUtils::WPlaybackInfo &playbackInfo);
 
 signals:
     void titleChanged();
@@ -69,6 +98,13 @@ signals:
     void totalTracksChanged();
     void trackNumberChanged();
     void thumbnailChanged();
+    void isPlayingChanged();
+    void isNextEnabledChanged();
+    void isPreviousEnabledChanged();
+    void isPauseEnabledChanged();
+    void isPlayEnabledChanged();
+    void isRepeatEnabledChanged();
+    void isShuffleEnabledChanged();
 
 private:
     QString m_title;
@@ -80,6 +116,13 @@ private:
     int m_totalTracks = 0;
     int m_trackNumber = 0;
     QUrl m_thumbnail;
+    bool m_isPlaying = false;
+    bool m_isNextEnabled = false;
+    bool m_isPreviousEnabled = false;
+    bool m_isPauseEnabled = false;
+    bool m_isPlayEnabled = false;
+    bool m_isRepeatEnabled = false;
+    bool m_isShuffleEnabled = false;
 };
 
 #endif // MEDIA_PLAYER_MODEL_H

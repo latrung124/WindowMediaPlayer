@@ -18,7 +18,7 @@ public:
 
     void onMediaInfoChanged(const WMediaInfo &mediaInfo) override;
     void onPlaybackControlsChanged(const WPlaybackControls &playbackControls) override;
-    void onPlaybackStatusChanged(const WPlaybackInfo &playbackInfo) override;
+    void onPlaybackInfoChanged(const WPlaybackInfo &playbackInfo) override;
 };
 
 #endif // WINDOW_MEDIA_SERVICE_LISTENER_H

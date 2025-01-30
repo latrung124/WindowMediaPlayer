@@ -27,7 +27,7 @@ void WindowMediaServiceListener::onPlaybackControlsChanged(const WPlaybackContro
     WindowMediaServiceHandler::getInstance().enqueueMessage(std::move(message));
 }
 
-void WindowMediaServiceListener::onPlaybackStatusChanged(const WPlaybackInfo &playbackInfo)
+void WindowMediaServiceListener::onPlaybackInfoChanged(const WPlaybackInfo &playbackInfo)
 {
     auto message = std::make_unique<WPlaybackInfoMessage>();
     message->setWPlaybackInfo(playbackInfo);
