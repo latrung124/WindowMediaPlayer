@@ -22,6 +22,7 @@ enum class ServiceMessageId : uint16_t
     WMediaInfoMessage = 1,
     WPlaybackControlsMessage = 2,
     WPlaybackInfoMessage = 3,
+    WTimelinePropertiesMessage = 4,
 };
 
 } // namespace service_handler::service_message

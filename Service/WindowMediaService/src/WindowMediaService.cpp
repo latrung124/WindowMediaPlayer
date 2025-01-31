@@ -88,3 +88,14 @@ void WindowMediaService::systemPlaybackInfoChanged(const WindowServiceUtils::WPl
         }
     }
 }
+
+void WindowMediaService::systemTimelinePropertiesChanged(const WindowServiceUtils::WTimelineProperties &timelineProperties)
+{
+    for (const auto& listener : m_listeners)
+    {
+        if (auto l = dynamic_cast<IWindowMediaServiceListener*>(listener))
+        {
+            l->onTimelinePropertiesChanged(timelineProperties);
+        }
+    }
+}

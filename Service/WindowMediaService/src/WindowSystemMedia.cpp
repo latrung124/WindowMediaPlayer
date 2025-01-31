@@ -269,7 +269,7 @@ void WindowSystemMedia::registerSessionPropertiesChangedEvents()
             .position = timelineProperties.Position().count(),
         };
 
-        // m_service->systemTimelinePropertiesChanged(wTimelineProperties);
+        m_service->systemTimelinePropertiesChanged(wTimelineProperties);
     });
 }
 

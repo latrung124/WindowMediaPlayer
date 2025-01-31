@@ -56,6 +56,8 @@ set (WINDOWMEDIASERVICELISTENER_SOURCES
     ServiceHandler/ServiceMessage/WindowMediaService/WPlaybackControlsMessage.cpp
     ServiceHandler/ServiceMessage/WindowMediaService/WPlaybackInfoMessage.h
     ServiceHandler/ServiceMessage/WindowMediaService/WPlaybackInfoMessage.cpp
+    ServiceHandler/ServiceMessage/WindowMediaService/WTimelinePropertiesMessage.h
+    ServiceHandler/ServiceMessage/WindowMediaService/WTimelinePropertiesMessage.cpp
 )
 
 set (SERVICELISTENER_SOURCES

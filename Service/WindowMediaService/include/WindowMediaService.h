@@ -34,6 +34,7 @@ public:
 
     void systemMediaPropertiesChanged(const WindowServiceUtils::WMediaInfo &WMediaInfo);
     void systemPlaybackInfoChanged(const WindowServiceUtils::WPlaybackInfo &playbackInfo);
+    void systemTimelinePropertiesChanged(const WindowServiceUtils::WTimelineProperties &timelineProperties);
 
 private:
     std::unique_ptr<WindowSystemMedia> m_windowSystemMedia = nullptr;

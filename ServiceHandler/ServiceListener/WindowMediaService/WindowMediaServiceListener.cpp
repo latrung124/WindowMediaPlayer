@@ -10,6 +10,7 @@
 #include "ServiceMessage/WindowMediaService/WMediaInfoMessage.h"
 #include "ServiceMessage/WindowMediaService/WPlaybackControlsMessage.h"
 #include "ServiceMessage/WindowMediaService/WPlaybackInfoMessage.h"
+#include "ServiceMessage/WindowMediaService/WTimelinePropertiesMessage.h"
 
 #include "WindowMediaServiceHandler.h"
 
@@ -31,5 +32,12 @@ void WindowMediaServiceListener::onPlaybackInfoChanged(const WPlaybackInfo &play
 {
     auto message = std::make_unique<WPlaybackInfoMessage>();
     message->setWPlaybackInfo(playbackInfo);
+    WindowMediaServiceHandler::getInstance().enqueueMessage(std::move(message));
+}
+
+void WindowMediaServiceListener::onTimelinePropertiesChanged(const WTimelineProperties &timelineProperties)
+{
+    auto message = std::make_unique<WTimelinePropertiesMessage>();
+    message->setWTimelineProperties(timelineProperties);
     WindowMediaServiceHandler::getInstance().enqueueMessage(std::move(message));
 }
