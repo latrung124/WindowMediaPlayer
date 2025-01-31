@@ -42,6 +42,7 @@ private:
     winrt::event_token m_sessionChangedToken;
     winrt::event_token m_mediaPropertiesToken;
     winrt::event_token m_playbackInfoToken;
+    winrt::event_token m_timelinePropertiesToken;
 
     WindowMediaService* m_service;
     std::string m_thumbnailPath = "";

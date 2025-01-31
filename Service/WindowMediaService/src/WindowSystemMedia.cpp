@@ -90,6 +90,17 @@ std::string saveThumbnailToFile(const GlobalSystemMediaTransportControlsSessionM
     }
 }
 
+std::chrono::system_clock::time_point convertDateTimeToChrono(DateTime winrtTime) {
+    // Duration since January 1, 1601 (UTC) in 100-nanosecond units
+    auto duration100ns = std::chrono::duration<int64_t, std::ratio<1, 10'000'000>>(winrtTime.time_since_epoch().count());
+
+    // Windows epoch start (January 1, 1601) as a chrono time_point
+    constexpr std::chrono::system_clock::time_point windowsEpoch = std::chrono::system_clock::time_point(std::chrono::duration<int64_t>(11644473600)); // seconds from 1601 to 1970
+
+    // Convert to standard system_clock time_point
+    return windowsEpoch + duration100ns;
+}
+
 } // namespace
 
 WindowSystemMedia::WindowSystemMedia(WindowSystemMedia &&service) noexcept
@@ -241,6 +252,24 @@ void WindowSystemMedia::registerSessionPropertiesChangedEvents()
        };
 
         m_service->systemPlaybackInfoChanged(wPlaybackInfo);
+    });
+
+    m_timelinePropertiesToken = m_session.TimelinePropertiesChanged([this](GlobalSystemMediaTransportControlsSession session, TimelinePropertiesChangedEventArgs args) {
+        const auto timelineProperties = session.GetTimelineProperties();
+        if (!timelineProperties) {
+            return;
+        }
+
+        WTimelineProperties wTimelineProperties{
+            .endTime = timelineProperties.EndTime().count(),
+            .startTime = timelineProperties.StartTime().count(),
+            .lastUpdatedTime = convertDateTimeToChrono(timelineProperties.LastUpdatedTime()),
+            .maxSeekTime = timelineProperties.MaxSeekTime().count(),
+            .minSeekTime = timelineProperties.MinSeekTime().count(),
+            .position = timelineProperties.Position().count(),
+        };
+
+        // m_service->systemTimelinePropertiesChanged(wTimelineProperties);
     });
 }
 

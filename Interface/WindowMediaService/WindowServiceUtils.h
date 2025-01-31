@@ -11,6 +11,7 @@
 #include <string>
 #include <stdint.h>
 #include <vector>
+#include <chrono>
 
 namespace WindowServiceUtils
 {
@@ -80,6 +81,16 @@ namespace WindowServiceUtils
         double playbackRate = 0.0;
         WMediaPlaybackStatus playbackStatus = WMediaPlaybackStatus::Closed;
         WMediaPlaybackType playbackType = WMediaPlaybackType::Unknown;
+    };
+
+    struct WTimelineProperties
+    {
+        int64_t endTime = 0;
+        int64_t startTime = 0;
+        std::chrono::system_clock::time_point lastUpdatedTime;
+        int64_t maxSeekTime = 0;
+        int64_t minSeekTime = 0;
+        int64_t position = 0;
     };
 }
 
