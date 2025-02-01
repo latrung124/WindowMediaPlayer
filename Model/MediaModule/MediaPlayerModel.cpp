@@ -7,6 +7,14 @@
 
 #include "MediaModule/MediaPlayerModel.h"
 
+namespace {
+
+double convert100nsToSeconds(int64_t timeIn100ns) {
+    return static_cast<double>(timeIn100ns) / 10'000'000.0;
+}
+
+}
+
 MediaPlayerModel::MediaPlayerModel(QObject *parent)
     : QObject(parent)
 {
@@ -39,6 +47,12 @@ void MediaPlayerModel::updatePlaybackInfo(const WindowServiceUtils::WPlaybackInf
     setIsPlayEnabled(playbackInfo.playbackControls.isPlayEnabled);
     setIsRepeatEnabled(playbackInfo.playbackControls.isRepeatEnabled);
     setIsShuffleEnabled(playbackInfo.isShuffled);
+}
+
+void MediaPlayerModel::updateTimelineProperties(const WindowServiceUtils::WTimelineProperties &timelineProperties)
+{
+    setDuration(convert100nsToSeconds(timelineProperties.endTime));
+    setPosition(convert100nsToSeconds(timelineProperties.position));
 }
 
 QString MediaPlayerModel::title() const
@@ -263,4 +277,32 @@ void MediaPlayerModel::setIsShuffleEnabled(bool isShuffleEnabled)
         m_isShuffleEnabled = isShuffleEnabled;
         emit isShuffleEnabledChanged();
     }
+}
+
+void MediaPlayerModel::setDuration(double duration)
+{
+    if (m_duration != duration)
+    {
+        m_duration = duration;
+        emit durationChanged();
+    }
+}
+
+double MediaPlayerModel::duration() const
+{
+    return m_duration;
+}
+
+void MediaPlayerModel::setPosition(double position)
+{
+    if (m_position != position)
+    {
+        m_position = position;
+        emit positionChanged();
+    }
+}
+
+double MediaPlayerModel::position() const
+{
+    return m_position;
 }
