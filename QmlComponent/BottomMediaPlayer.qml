@@ -151,17 +151,94 @@ Item {
             }
         }
 
-        MediaControl {
-            id: mediaControl
+        ColumnLayout {
+            id: controlColumnLayout
 
-            isPlaying: mediaPlayerModel ? mediaPlayerModel.isPlaying : false
-            isPlayingEnabled: mediaPlayerModel ? mediaPlayerModel.isPlayingEnabled : false
-            isPauseEnabled: mediaPlayerModel ? mediaPlayerModel.isPauseEnabled : false
-            isShuffleEnabled: mediaPlayerModel ? mediaPlayerModel.isShuffleEnabled : false
-            isRepeatEnabled: mediaPlayerModel ? mediaPlayerModel.isRepeatEnabled : false
-            isPreviousEnabled: mediaPlayerModel ? mediaPlayerModel.isPreviousEnabled : false
-            isNextEnabled: mediaPlayerModel ? mediaPlayerModel.isNextEnabled : false
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            spacing: 0
+
+            MediaControl {
+                id: mediaControl
+
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                isPlaying: mediaPlayerModel ? mediaPlayerModel.isPlaying : false
+                isPlayingEnabled: mediaPlayerModel ? mediaPlayerModel.isPlayingEnabled : false
+                isPauseEnabled: mediaPlayerModel ? mediaPlayerModel.isPauseEnabled : false
+                isShuffleEnabled: mediaPlayerModel ? mediaPlayerModel.isShuffleEnabled : false
+                isRepeatEnabled: mediaPlayerModel ? mediaPlayerModel.isRepeatEnabled : false
+                isPreviousEnabled: mediaPlayerModel ? mediaPlayerModel.isPreviousEnabled : false
+                isNextEnabled: mediaPlayerModel ? mediaPlayerModel.isNextEnabled : false
+            }
+
+            RowLayout {
+                id: progressRowLayout
+
+                Layout.preferredWidth: 600
+                Layout.preferredHeight: 20
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                Item {
+                    id: startTimeRect
+
+                    Layout.preferredWidth: 20
+                    Layout.preferredHeight: 20
+
+                    Text {
+                        id: startTimeText
+
+                        anchors.fill: parent
+                        horizontalAlignment: Text.AlignRight
+                        verticalAlignment: Text.AlignVCenter
+                        text: mediaPlayerModel ? mediaPlayerModel.startTime : "00:00"
+                        font {
+                            family: "Helvetica"
+                            pixelSize: 12
+                        }
+                        color: "#FFFFFF"
+                    }
+                }
+
+                Rectangle {
+                    id: durationRect
+
+                    Layout.preferredWidth: 560
+                    Layout.preferredHeight: 4
+                    Layout.alignment: Qt.AlignVCenter
+                    color: "#999999"
+                    radius: 2
+
+                    Rectangle {
+                        id: progressRect
+
+                        width: 10
+                        height: 4
+                        color: "#FFFFFF"
+                        radius: 2
+                    }
+                }
+
+                Item {
+                    id: endTimeRect
+
+                    Layout.preferredWidth: 20
+                    Layout.preferredHeight: 20
+
+                    Text {
+                        id: endTimeText
+
+                        anchors.fill: parent
+                        horizontalAlignment: Text.AlignLeft
+                        verticalAlignment: Text.AlignVCenter
+                        text: mediaPlayerModel ? mediaPlayerModel.endTime : "00:00"
+                        font {
+                            family: "Helvetica"
+                            pixelSize: 12
+                        }
+                        color: "#FFFFFF"
+                    }
+                }
+            }
         }
 
         Item {
