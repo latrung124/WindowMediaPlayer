@@ -34,6 +34,8 @@ class MediaPlayerModel : public QObject
     Q_PROPERTY(bool isRepeatEnabled READ isRepeatEnabled WRITE setIsRepeatEnabled NOTIFY isRepeatEnabledChanged)
     Q_PROPERTY(bool isShuffleEnabled READ isShuffleEnabled WRITE setIsShuffleEnabled NOTIFY isShuffleEnabledChanged)
     Q_PROPERTY(double position READ position WRITE setPosition NOTIFY positionChanged)
+    Q_PROPERTY(QString startTime READ startTime WRITE setStartTime NOTIFY startTimeChanged)
+    Q_PROPERTY(QString endTime READ endTime WRITE setEndTime NOTIFY endTimeChanged)
 
 public:
     MediaPlayerModel(QObject *parent = nullptr);
@@ -89,6 +91,12 @@ public:
     double position() const;
     void setPosition(double position);
 
+    QString startTime() const;
+    void setStartTime(const QString &startTime);
+
+    QString endTime() const;
+    void setEndTime(const QString &endTime);
+
     void updateMediaInfo(const WindowServiceUtils::WMediaInfo &wMediaInfo);
     void updatePlaybackInfo(const WindowServiceUtils::WPlaybackInfo &playbackInfo);
     void updateTimelineProperties(const WindowServiceUtils::WTimelineProperties &timelineProperties);
@@ -111,6 +119,8 @@ signals:
     void isRepeatEnabledChanged();
     void isShuffleEnabledChanged();
     void positionChanged();
+    void startTimeChanged();
+    void endTimeChanged();
 
 private:
     QString m_title;
@@ -130,6 +140,8 @@ private:
     bool m_isRepeatEnabled = false;
     bool m_isShuffleEnabled = false;
     double m_position = 0.0;
+    QString m_startTime = "00:00";
+    QString m_endTime = "00:00";
 };
 
 #endif // MEDIA_PLAYER_MODEL_H

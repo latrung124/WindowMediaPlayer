@@ -291,3 +291,31 @@ double MediaPlayerModel::position() const
 {
     return m_position;
 }
+
+QString MediaPlayerModel::startTime() const
+{
+    return m_startTime;
+}
+
+void MediaPlayerModel::setStartTime(const QString &startTime)
+{
+    if (m_startTime != startTime)
+    {
+        m_startTime = startTime;
+        emit startTimeChanged();
+    }
+}
+
+QString MediaPlayerModel::endTime() const
+{
+    return m_endTime;
+}
+
+void MediaPlayerModel::setEndTime(const QString &endTime)
+{
+    if (m_endTime != endTime)
+    {
+        m_endTime = endTime;
+        emit endTimeChanged();
+    }
+}
