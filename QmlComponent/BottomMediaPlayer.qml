@@ -211,7 +211,7 @@ Item {
                     Rectangle {
                         id: progressRect
 
-                        width: 10
+                        width: mediaPlayerModel ? mediaPlayerModel.position * (durationRect.width/100) : 0
                         height: 4
                         color: "#FFFFFF"
                         radius: 2

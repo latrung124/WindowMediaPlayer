@@ -28,6 +28,13 @@ std::string convertToMinutesSeconds(int64_t timeIn100ns) {
     return oss.str();
 }
 
+double calculateProgress(int64_t positionIn100ns, int64_t durationIn100ns) {
+    double duration = convert100nsToSeconds(durationIn100ns);
+    double position = convert100nsToSeconds(positionIn100ns);
+    if (duration <= 0) return 0.0;  // Prevent division by zero
+    return (static_cast<double>(position) / duration) * 100.0;
+}
+
 }
 
 MediaPlayerModel::MediaPlayerModel(QObject *parent)
@@ -68,7 +75,7 @@ void MediaPlayerModel::updateTimelineProperties(const WindowServiceUtils::WTimel
 {
     setStartTime(QString::fromStdString(convertToMinutesSeconds(timelineProperties.startTime)));
     setEndTime(QString::fromStdString(convertToMinutesSeconds(timelineProperties.endTime)));
-    setPosition(convert100nsToSeconds(timelineProperties.position));
+    setPosition(calculateProgress(timelineProperties.position, timelineProperties.endTime));
 }
 
 QString MediaPlayerModel::title() const
