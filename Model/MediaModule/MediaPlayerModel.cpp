@@ -51,7 +51,6 @@ void MediaPlayerModel::updatePlaybackInfo(const WindowServiceUtils::WPlaybackInf
 
 void MediaPlayerModel::updateTimelineProperties(const WindowServiceUtils::WTimelineProperties &timelineProperties)
 {
-    setDuration(convert100nsToSeconds(timelineProperties.endTime));
     setPosition(convert100nsToSeconds(timelineProperties.position));
 }
 
@@ -277,20 +276,6 @@ void MediaPlayerModel::setIsShuffleEnabled(bool isShuffleEnabled)
         m_isShuffleEnabled = isShuffleEnabled;
         emit isShuffleEnabledChanged();
     }
-}
-
-void MediaPlayerModel::setDuration(double duration)
-{
-    if (m_duration != duration)
-    {
-        m_duration = duration;
-        emit durationChanged();
-    }
-}
-
-double MediaPlayerModel::duration() const
-{
-    return m_duration;
 }
 
 void MediaPlayerModel::setPosition(double position)
