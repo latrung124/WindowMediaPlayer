@@ -7,10 +7,25 @@
 
 #include "MediaModule/MediaPlayerModel.h"
 
+#include <iomanip>
+#include <sstream>
+
 namespace {
 
 double convert100nsToSeconds(int64_t timeIn100ns) {
     return static_cast<double>(timeIn100ns) / 10'000'000.0;
+}
+
+std::string convertToMinutesSeconds(int64_t timeIn100ns) {
+    auto seconds = convert100nsToSeconds(timeIn100ns);
+    auto minutes = static_cast<int>(seconds / 60);
+    auto remainingSeconds = static_cast<int>(seconds) % 60;
+
+    std::ostringstream oss;
+    oss << std::setw(2) << std::setfill('0') << minutes << ":"
+        << std::setw(2) << std::setfill('0') << remainingSeconds;
+
+    return oss.str();
 }
 
 }
@@ -51,6 +66,8 @@ void MediaPlayerModel::updatePlaybackInfo(const WindowServiceUtils::WPlaybackInf
 
 void MediaPlayerModel::updateTimelineProperties(const WindowServiceUtils::WTimelineProperties &timelineProperties)
 {
+    setStartTime(QString::fromStdString(convertToMinutesSeconds(timelineProperties.startTime)));
+    setEndTime(QString::fromStdString(convertToMinutesSeconds(timelineProperties.endTime)));
     setPosition(convert100nsToSeconds(timelineProperties.position));
 }
 
