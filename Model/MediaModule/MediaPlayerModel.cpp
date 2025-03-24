@@ -73,7 +73,7 @@ void MediaPlayerModel::updatePlaybackInfo(const WindowServiceUtils::WPlaybackInf
 
 void MediaPlayerModel::updateTimelineProperties(const WindowServiceUtils::WTimelineProperties &timelineProperties)
 {
-    setStartTime(QString::fromStdString(convertToMinutesSeconds(timelineProperties.startTime)));
+    setStartTime(QString::fromStdString(convertToMinutesSeconds(timelineProperties.position))); // start time is the current position
     setEndTime(QString::fromStdString(convertToMinutesSeconds(timelineProperties.endTime)));
     setPosition(calculateProgress(timelineProperties.position, timelineProperties.endTime));
 }
