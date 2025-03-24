@@ -34,6 +34,9 @@ private:
     void registerCurrentSessionChangedEvents();
     void registerSessionPropertiesChangedEvents();
 
+    template <typename Properties>
+    void updateMediaProperties(Properties &&properties);
+
     void removeOldTempThumbnail();
 
     GlobalSystemMediaTransportControlsSessionManager m_sessionManager{ nullptr };
