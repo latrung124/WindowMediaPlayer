@@ -90,6 +90,11 @@ void ServiceController::onModuleLoadedSucceed(const EnginePtr &engine)
     initializeModels();
 }
 
+void ServiceController::onModuleUnload()
+{
+    WindowMediaServiceHandler::getInstance().stop();
+}
+
 void ServiceController::initializeModels()
 {
     // TODO: set some service models in qml

@@ -43,8 +43,8 @@ ApplicationWindow {
 
         onCloseWindowClicked: {
             root.close();
-            if (windowControl) {
-                windowControl.closeWindow();
+            if (windowController) {
+                windowController.closeWindow();
             }
         }
     }

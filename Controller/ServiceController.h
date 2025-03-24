@@ -34,6 +34,7 @@ public:
 
 public slots:
     void onModuleLoadedSucceed(const EnginePtr &engine);
+    void onModuleUnload();
 
 private:
     ServiceController(QObject *parent = nullptr);

@@ -6,6 +6,7 @@
 */
 
 #include "WindowMediaServiceConsumer.h"
+
 #include "ServiceMessage/BaseServiceMessage.h"
 #include "WindowMediaServiceHandler.h"
 
@@ -13,7 +14,6 @@
 
 WindowMediaServiceConsumer::WindowMediaServiceConsumer(WindowMediaServiceHandler *handler)
     : m_handler(handler)
-    , m_isRunning(false)
 {
 }
 
@@ -24,26 +24,27 @@ WindowMediaServiceConsumer::~WindowMediaServiceConsumer()
 
 void WindowMediaServiceConsumer::start()
 {
-    m_isRunning = true;
+    m_stopFlag.store(false);
     m_looper = std::thread(&WindowMediaServiceConsumer::loop, this);
 }
 
 void WindowMediaServiceConsumer::stop()
 {
-    m_isRunning = false;
-    m_conditionVariable.notify_all();
+    m_stopFlag.store(true);
+    m_conditionVariable.notify_one();
+    utils::ThreadGuard guard(m_looper);
 }
 
 bool WindowMediaServiceConsumer::canConsume()
 {
-    return m_isRunning && !m_messageQueue.empty();
+    return m_stopFlag.load() || !m_messageQueue.empty();
 }
 
 void WindowMediaServiceConsumer::addMessage(ServiceMessageUPtr message)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
     m_messageQueue.push(std::move(message));
-    m_conditionVariable.notify_all();
+    m_conditionVariable.notify_one();
 }
 
 void WindowMediaServiceConsumer::loop()
@@ -54,11 +55,11 @@ void WindowMediaServiceConsumer::loop()
             return canConsume();
         });
 
-        if (!m_isRunning && m_messageQueue.empty()) {
+        if (m_stopFlag.load() && m_messageQueue.empty()) {
             break;
         }
 
-        if (m_handler) {
+        if (!m_messageQueue.empty() && m_handler) {
             auto message = std::move(m_messageQueue.front());
             m_messageQueue.pop();
             processMessage(std::move(message));
@@ -68,7 +69,5 @@ void WindowMediaServiceConsumer::loop()
 
 void WindowMediaServiceConsumer::processMessage(ServiceMessageUPtr message)
 {
-    if (m_handler) {
-        m_handler->processMessage(std::move(message));
-    }
+    m_handler->processMessage(std::move(message));
 }

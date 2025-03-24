@@ -12,6 +12,7 @@
 #include "ServiceController.h"
 
 #include "QQmlContext"
+#include <QGuiApplication>
 
 ModuleController::ModuleController(QObject *parent)
     : QObject(parent)
@@ -47,7 +48,10 @@ void ModuleController::startConnection() {
         m_windowController.get(),
         &WindowController::close,
         this,
-        [this]() { emit moduleUnloaded(); },
+        [this]() {
+            emit moduleUnloaded();
+            ServiceController::getInstance().onModuleUnload();
+        },
         Qt::QueuedConnection);
 
     QObject::connect(

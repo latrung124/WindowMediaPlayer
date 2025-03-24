@@ -11,6 +11,7 @@
 #include "ServiceConsumer/BaseServiceConsumer.h"
 #include "Utils/ThreadGuard.h"
 
+#include <atomic>
 #include <mutex>
 #include <condition_variable>
 #include <queue>
@@ -47,8 +48,8 @@ private:
     std::thread m_looper;
     std::condition_variable m_conditionVariable;
     std::queue<ServiceMessageUPtr> m_messageQueue;
-    bool m_isRunning;
     WindowMediaServiceHandler* m_handler = nullptr;
+    std::atomic<bool> m_stopFlag{false};
 };
 
 #endif // WINDOW_MEDIA_SERVICE_CONSUMER_H
