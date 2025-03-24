@@ -31,6 +31,7 @@ public:
     bool systemInit();
 
 private:
+    void getSyncMediaProperties(const GlobalSystemMediaTransportControlsSession &session);
     void registerCurrentSessionChangedEvents();
     void registerSessionPropertiesChangedEvents();
 

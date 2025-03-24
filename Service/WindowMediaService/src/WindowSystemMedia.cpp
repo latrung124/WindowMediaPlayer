@@ -12,6 +12,7 @@
 #include <fstream>
 #include <filesystem>
 #include <random>
+#include <thread>
 
 #include <winrt/Windows.Storage.Streams.h>
 #include <winrt/Windows.Foundation.h>
@@ -133,7 +134,8 @@ WindowSystemMedia& WindowSystemMedia::operator=(WindowSystemMedia &&service) noe
 WindowSystemMedia::WindowSystemMedia(WindowMediaService* service)
     : m_service(service)
 {
-    systemInit();
+    std::thread init(&WindowSystemMedia::systemInit, this);
+    init.detach();
 }
 
 template <>
@@ -240,6 +242,7 @@ bool WindowSystemMedia::systemInit()
         m_session = m_sessionManager.GetCurrentSession();
         if (m_session) {
             registerSessionPropertiesChangedEvents();
+            getSyncMediaProperties(m_session);
         }
     } catch(winrt::hresult_error const& ex) {
         winrt::hstring message = ex.message();
@@ -250,6 +253,19 @@ bool WindowSystemMedia::systemInit()
     }
 
     return true;
+}
+
+void WindowSystemMedia::getSyncMediaProperties(const GlobalSystemMediaTransportControlsSession &session)
+{
+    const auto mediaPropertiesAsync = session.TryGetMediaPropertiesAsync();
+    if (!mediaPropertiesAsync) return;
+    updateMediaProperties(std::move(mediaPropertiesAsync.get()));
+
+    updateMediaProperties(std::move(session.GetPlaybackInfo()));
+
+    auto timelineProperties = session.GetTimelineProperties();
+    if (!timelineProperties) return;
+    updateMediaProperties(std::move(timelineProperties));
 }
 
 void WindowSystemMedia::registerCurrentSessionChangedEvents()
